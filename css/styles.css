@@ -1,0 +1,151 @@
+
+html, body {
+  margin:0;
+  padding:0;
+}
+
+.content {
+  width: 80%;
+  max-width: 1200px;
+  margin: 70px auto;
+}
+
+.logo {
+  max-width: 120px;
+  max-height: 120px;
+}
+
+/* Makes our label white. */
+.blocklyTreeLabel {
+    color: white;
+  }
+  /* Adds padding around the group of categories and separators. */
+  /* .blocklyToolboxContents {
+    padding: .5em;
+  } */
+  /* Adds space between the categories, rounds the corners and adds space around the label. */
+  .blocklyTreeRow {
+    padding: 3px;
+    margin-bottom: 1em;
+    border-radius: 3px;
+  }
+  /* Changes color of the icon to white. */
+  .customIcon {
+    color: rgb(255, 255, 255);
+    padding-bottom: 5px;  
+  }
+  /* Stacks the icon on top of the label. */
+  .blocklyTreeRowContentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .blocklyTreeRow {
+    height: initial;
+  }
+
+  #capacityBubble {
+    position: absolute;
+    margin-top: -0.5em;
+    top: 375px;
+    width: 380px;
+  }
+
+  /* Body Stuff */
+  #blocklyDiv {
+    margin-top: 4.5em;
+    position: fixed; 
+    bottom: 10px;
+  }
+
+  .game-control
+  { 
+    position: relative;
+    float: right; 
+    margin-right: 1em;
+  }
+  
+  button {
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 40px;
+  width: 90px;
+  opacity: 1;
+  background-color: #106cfc;
+  border-color: white;
+  color: white;
+  }
+
+  #stepButton {
+    width: 110px
+  }
+
+  #canvas1 {
+    position: relative;
+    border-radius: 10px;
+  }
+  #capacity {
+    display: none;
+    color: #fff;
+    padding: 5px 1em;
+    border-radius: 15px;
+    background-color: rgba(64,64,64,.7);
+    font-size: large;
+  }
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+
+  .column {
+    float: center;
+    width: 25%;
+    padding: 35px;
+  }
+  
+  /* Style the images inside the grid */
+  .column img {
+    opacity: 0.8;
+    cursor: pointer;
+    width: 150px; 
+
+  }
+  
+  .column img:hover {
+    opacity: 1;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
