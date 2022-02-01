@@ -1,9 +1,10 @@
 
-var language
+var language; 
+var locale; 
 
 function changeLanguage(lang)
 {
-    location = "?lang=" + lang; 
+    location = "?lang=" + lang;
     //loadFromLocal();
     //location.reload();
 
@@ -11,15 +12,19 @@ function changeLanguage(lang)
 
 if (window.location.search)
 {
-    switch (window.location.search)
+    var langName = new URLSearchParams(window.location.search).get('lang');
+    switch (langName)
     {
-        case "?lang=ar":
+        case "ar":
+            language = lang.ar
             setMsg(lang.ar);
             break;  
-        case "?lang=en": 
+        case "en": 
+            language = lang.en
             setMsg(lang.en);
             break;  
         default: 
+            language = lang.en
             setMsg(lang.en); 
             break; 
     }
@@ -41,3 +46,9 @@ function setMsg(lang){
     document.getElementById("view").textContent = lang.button.view;
 
 }
+
+function getMsg(){
+    return language; 
+}
+
+

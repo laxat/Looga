@@ -35,9 +35,10 @@
                     <div class="nav-item dropdown">
                         <a href="#" id="file" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">File</a>
                         <div class="dropdown-menu">
-                            <a href="#new" id="new" class="dropdown-item">New Project</a>
+                            <a href="#" id="new" class="dropdown-item">New Project</a>
                             <a href="#" id="save" class="dropdown-item">Save Project</a>
-                            <a href="#" id="load" class="dropdown-item" onclick="document.getElementById('impFile').click();">Load Project</a>
+                            <a href="#" id="load" class="dropdown-item">Load Project</a>
+                            <!-- onclick="document.getElementById('impFile').click();" -->
                         </div>
                     </div>
                   </div>
@@ -45,28 +46,63 @@
           </div>
       </nav>
     </div>
-    <div id="newModal" class="modal">
-
+    <div id="newModal" class="mod">
       <!-- Modal content -->
-      <div class="modal-content">
+      <div class="mod-content">
         <p>Select Your Character</p>
         <div class="row">
           <div class="column">
-            <img src="common/sprites/looga.png" alt="robot" onclick="selectCharacter('robot')" style="width:100px;height:150px;">
+            <img src="common/sprites/looga.png" alt="robot" onclick="selectCharacter('robot')" width="80">
           </div>
           <div class="column">
-            <img src="common/sprites/bluebot/blue-select.png" alt="blue" onclick="selectCharacter('blue')">
+            <img src="common/sprites/bluebot/blue-idle.png" alt="blue" onclick="selectCharacter('blue')" width="150">
           </div>
           <div class="column">
-            <img src="common/sprites/cat/cat-select.png" alt="cat" onclick="selectCharacter('cat')">
+            <img src="common/sprites/cat/cat-idle.png" alt="cat" onclick="selectCharacter('cat')" width="150">
           </div>
           <div class="column">
-            <img src="common/sprites/redbot/red-select.png" alt="red" onclick="selectCharacter('red')">
+            <img src="common/sprites/redbot/red-idle.png" alt="red" onclick="selectCharacter('red')" width=150>
           </div>
         </div>
       </div>
-    
     </div>
+
+    <div id="loadDesc" class="mod">
+      <div class="intro-modal-content">
+        <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="text-center mt-2"> <img src="common/sprites/cat/cat-idle.png" width="200"></div>
+              </div>
+              <div class="col-md-6">
+                  <div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Load saved game</span>
+                      <div class="mt-2" id="stateDesc"> <span class="intro-2">If you have an old saved game, click to load from the file</span></div>
+                      <div class="mt-4 mb-5"><button class="btn btn-primary" id="loadBtn" onclick="document.getElementById('impFile').click()">Load Game  <i class="fa fa-file" aria-hidden="true"></i></button></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="newDesc" class="mod">
+      <div class="intro-modal-content">
+        <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="text-center mt-2"> <img src="common/sprites/bluebot/blue-select.png" width="200"></div>
+              </div>
+              <div class="col-md-6">
+                  <div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Start New Game</span>
+                      <div class="mt-2" id="stateDesc"> <span class="intro-2">Start a new game, and progress through all the levels</span></div>
+                      <div class="mt-4 mb-5"><button class="btn btn-primary" id="newBtn">New Game  <i class="fa fa-gamepad" aria-hidden="true"></i></button></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="content"></div>
     <div class="game-control">
       <table width="500">
@@ -118,71 +154,41 @@
     </div>
       
 
-      <xml xmlns="https://developers.google.com/blockly/xml" id="en-toolbox" style="display:none">
-          <category name="Move" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">
+      <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox">
+         <category name="Move" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">
             <block type="robot_moveRight"></block>
             <block type="robot_moveLeft"></block>
             <block type="robot_moveDownward"></block>
             <block type="robot_moveUpward"></block>
           </category>
-          <category name="Scene" css-icon="customIcon fa fa-picture-o" hidden="true" categorystyle="logic_category">
-            <block type="robot_back"></block>
-            <block type="robot_light"></block>
-          </category>
-          <category name="Loops" css-icon="customIcon fa fa-refresh" hidden="true" categorystyle="loop_category">
-            <block type="robot_loops">
-              <value name="TIMES">
-                <block type="math_number">
-                  <field name="NUM">10</field>
-                </block>
-            </block>
-            </value>
-            </block>
-          </category>
         </xml>
 
 
-        <xml xmlns="https://developers.google.com/blockly/xml" id="ar-toolbox" style="display:none">
-          <category name="الحركة"  css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">
-            <block type="robot_moveRight"></block>
-            <block type="robot_moveLeft" hidden="true"></block>
-            <block type="robot_moveDownward"></block>
-            <block type="robot_moveUpward"></block>
-          </category>
-          <category name="المشهد"  css-icon="customIcon fa fa-picture-o" categorystyle="logic_category">
-            <block type="robot_back"></block>
-            <block type="robot_light"></block>
-          </category>
-          <category name="الحلقات"  css-icon="customIcon fa fa-refresh" categorystyle="loop_category">
-            <block type="robot_loops">
-              <value name="TIMES">
-                <block type="math_number">
-                  <field name="NUM">10</field>
-                </block>
-            </block>
-            </value>
-            </block>
-          </category>
-        </xml>
-
-        
         <script src="js/translate.js"></script>
         <script src="js/toolbox/toolbox.js"></script>
         <script src="js/toolbox/categories.js"></script>
         <script src="js/blocks.js"></script>
-        <script src="js/game.js"></script>  
+        <script src="js/levels.js"></script>
+        <script src="js/game.js"></script>
         <script>
+          var newLevel = isNewLevel; 
           if(window.location.hash === "#new"){
-            startNewGame(); 
-            window.location.hash = ""; 
+            selectCharacter('none');
+            loadLevel('tut1'); 
+            document.getElementById('newDesc').style.display = 'block';  
+          }
+          if(window.location.hash === "#load"){
+            document.getElementById('loadDesc').style.display = 'block'; 
           }
           if (window.performance.navigation.type == window.performance.navigation.TYPE_RELOAD) {
-              console.info( "This page is reloaded");
-              loadFromLocal();  
+              loadBlocks(); 
+              loadLevel(level); 
+              checkLevel(); 
+            console.info( "This page is reloaded");
           } else {
               console.info( "This page is not reloaded");
-              localStorage.removeItem("blocks"); 
-              localStorage.removeItem("player"); 
+              localStorage.removeItem("blocks");
+              setNewLevel(); 
           }
         </script>
       </div> 

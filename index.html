@@ -29,7 +29,7 @@
                 </div>
                 <div id="mode-select" class="row input-group-newsletter" style="visibility: hidden;">
                     <div class="col"><button id="new" class="btn btn-primary" onclick="pushToNew()">New Game </button></div>
-                    <div class="col"><button id="load" class="btn btn-primary" onclick="pushToMain()">Load</button></div>
+                    <div class="col"><button id="load" class="btn btn-primary" onclick="pushToLoad()">Load</button></div>
                 </div>
             </div>
         </div>
@@ -54,8 +54,8 @@
             document.getElementById("lang-txt").style.display = 'none'; 
             document.getElementById("mode-txt").style.display = 'block'; 
         }
-        function pushToMain() {
-            window.location.href = "main.html"+query; 
+        function pushToLoad() {
+            window.location.href = "main.html"+query+"#load"; 
         }
         function pushToNew() {
             window.location.href = "main.html"+query+"#new"; 

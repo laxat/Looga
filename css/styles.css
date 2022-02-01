@@ -102,7 +102,7 @@ html, body {
     font-size: large;
   }
 
-  .modal {
+  .mod {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -115,37 +115,72 @@ html, body {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
+
   
-  /* Modal Content */
-  .modal-content {
+/* Modal Content */
+.mod-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
+    width: 55%;
+    max-width: 55%;
+  }
+
+.intro-modal-content {
+    background-color: #5165ff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #5165ff;
     width: 50%;
+    max-width: 50%;
   }
 
-  .column {
-    float: center;
-    width: 25%;
-    padding: 35px;
-  }
-  
-  /* Style the images inside the grid */
-  .column img {
-    opacity: 0.8;
-    cursor: pointer;
-    width: 150px; 
+.modal-body {
+    background-color: #5165ff;
+    border-color: #5165ff
+}
 
-  }
-  
-  .column img:hover {
-    opacity: 1;
-  }
-  
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+.intro-1 {
+    font-size: 20px
+}
+
+.intro-2 {
+    font-size: 13px
+}
+
+.btn-primary {
+  color: #5165ff;
+  background-color: #fffaff;
+  border-color: #fffaff;
+  width: 155px;
+  padding: 8px;
+  font-weight: 700;
+  border-radius: 41px;
+  padding-right: 20px;
+  padding-left: 20px;
+  white-space: normal;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

@@ -8,25 +8,22 @@ var myInterpreter = null;
 var highlightPause = false; 
 
 var pidList = []; 
-
+ 
 var prevType_ = null; 
 var prevDate_ = 0;
 
-var locale = window.location.search; 
+// var locale = checkLanguage(); 
 
 var blocklyDiv = document.getElementById("blocklyDiv"); 
 var canvas = document.getElementById("canvas1");
 var visualization = document.getElementById('visualization');
-
-var exportButton = document.getElementById('save'); 
+var exportButton = document.getElementById('save');
+var importButton = document.getElementById('load');  
 var newButton = document.getElementById('new');
-
 var modal = document.getElementById('newModal'); 
-
-var frameSpeed = 15;
-
-var language = locale == "?lang=ar" ?  lang.ar:  lang.en
-
+var frameSpeed = 10;
+var isPlayerPicked=false; 
+var newGameStarted = isNewGame; 
 
 const PLAYER = {
 
@@ -34,6 +31,7 @@ const PLAYER = {
         name: "none",
         run: "",
         jump: "", 
+        idle: "", 
         height: 0,
         width: 0,
         runFrames: 0,
@@ -46,20 +44,27 @@ const PLAYER = {
         name: "robot", 
         run: "common/sprites/looga.png",
         jump: "common/sprites/looga.png",
+        idle: "common/sprites/looga.png",
         height: 2500,
         width: 2200,
+        idleHeight: 2500,
+        idleWidth: 2200,
         runFrames: 0,
         jumpFrame: 0, 
         fallFrame: 0, 
-        size: 125
+        runSize: 125, 
+        idleSize: 125
     },
 
     BLUE: {
         name: "blue",
         run: "common/sprites/bluebot/blue-run.png",    
         jump: "common/sprites/bluebot/blue-jump.png",
+        idle:"common/sprites/bluebot/blue-idle.png", 
         height: 395, 
-        width: 395, 
+        width: 395,
+        idleHeight: 787,
+        idleWidth: 786,
         runFrames: 5,
         jumpFrame: 1, 
         fallFrame: 2,
@@ -71,8 +76,11 @@ const PLAYER = {
         name: "cat",
         run: "common/sprites/cat/cat-run.png",    
         jump: "common/sprites/cat/cat-jump.png",
+        idle:"common/sprites/cat/cat-idle.png", 
         height: 852, 
         width: 852, 
+        idleHeight: 435,
+        idleWidth: 435,
         runFrames: 3,
         jumpFrame: 0, 
         fallFrame: 1, 
@@ -84,8 +92,11 @@ const PLAYER = {
         name: "red",
         run: "common/sprites/redbot/red-run.png",    
         jump: "common/sprites/redbot/red-jump.png",
+        idle:"common/sprites/redbot/red-idle.png", 
         height: 395, 
         width: 395, 
+        idleHeight: 786,
+        idleWidth: 786,
         runFrames: 5,
         jumpFrame: 0, 
         fallFrame: 1,
@@ -93,8 +104,7 @@ const PLAYER = {
     }
 
 }
-var playerSelect = PLAYER.ROBOT;
-
+var playerSelect = PLAYER.NONE; 
 const BACK = {
 
     "RIVER": "common/background/back1.png",
@@ -119,7 +129,9 @@ const player = {
     width: playerSelect.width, 
     height: playerSelect.height,
     frameX: 0, 
-    frameY: 0, 
+    frameY: 0,
+    idleHeight: playerSelect.idleHeight,
+    idleWidth: playerSelect.idleWidth, 
     maxRunFrames: playerSelect.runFrames, 
     action: 'idle',
     gravity: 10,
@@ -133,6 +145,8 @@ const playerSprite = new Image();
 playerSprite.src = playerSelect.run;
 const jumpSprite = new Image(); 
 jumpSprite.src = playerSelect.jump; 
+const idleSprite = new Image();
+idleSprite.src = playerSelect.idle; 
 const background = new Image(); 
 background.src = BACK["RIVER"];
 const lightSprite = new Image(); 
@@ -148,9 +162,10 @@ var onresize = function(e) {
 window.addEventListener('resize', onresize);
 onresize();
 
+
 if (blocklyDiv){
     var gameWorkspace = Blockly.inject('blocklyDiv', {
-        toolbox: locale == "?lang=ar" ? document.getElementById('ar-toolbox') :  document.getElementById('en-toolbox'), 
+        toolbox: document.getElementById('toolbox'), 
         renderer: "zelos",
         zoom: 
         {
@@ -158,25 +173,48 @@ if (blocklyDiv){
         },
     });
 
+    
 
     Blockly.JavaScript.addReservedWords('movePlayerRight,' + 
     'movePlayerLeft,movePlayerUp,movePlayerDown,highlightBlock,changeBack,' +
-    'turnLightOn,turnLightOff'); 
+    'turnLightOn,turnLightOff');
 
+    ///gameWorkspace.registerButtonCallback("COLOUR_PALETTE", coloursFlyoutCallback); 
+    
     gameWorkspace.addChangeListener(function(event) {
         if (!(event instanceof Blockly.Events.Ui)) {
           // Something changed. Parser needs to be reloaded.
           generateCodeAndLoadIntoInterpreter();
+          saveToLocal(); 
         }
+        saveToLocal(); 
     });
+}
+if(newGameStarted) {
+    startNewGame(); 
+    newGameStarted = false; 
 }
 
 
+var btnNew = document.getElementById('newDesc'); 
+
 exportButton.addEventListener("click", exportBlocks); 
-newButton.addEventListener("click", startNewGame); 
-gameWorkspace.addChangeListener(function(event){
-    saveToLocal(); 
-}); 
+newButton.addEventListener("click", launchNewModal); 
+importButton.addEventListener("click", launchLoadModel); 
+btnNew.addEventListener("click", startGame); 
+
+function launchNewModal() {
+    //window.location.hash = ""; 
+    selectCharacter('none');
+    loadLevel('tut1'); 
+    document.getElementById('newDesc').style.display = 'block';
+}
+
+function launchLoadModel(){
+    //window.location.hash = ""; 
+    document.getElementById('loadDesc').style.display = 'block';
+}
+
 
 function selectCharacter(name) {
 
@@ -186,25 +224,70 @@ function selectCharacter(name) {
             break; 
         case "robot":
             playerSelect = PLAYER.ROBOT; 
+            isPlayerPicked = true; 
             break;
         case "blue": 
             playerSelect = PLAYER.BLUE;
+            isPlayerPicked = true; 
             break;
         case "red":
             playerSelect = PLAYER.RED; 
+            isPlayerPicked = true; 
             break; 
         case "cat":
             playerSelect = PLAYER.CAT; 
+            isPlayerPicked = true; 
             break; 
         default: 
             playerSelect = PLAYER.BLUE;
+            isPlayerPicked = true; 
             break; 
     }
+    
+    isPlayerPicked = false; 
     modal.style.display = "none";
     window.location.hash = ""; 
+
     playerSprite.src = playerSelect.run;
     jumpSprite.src = playerSelect.jump; 
+    idleSprite.src = playerSelect.idle; 
     loadPlayer(playerSelect); 
+}
+
+function loadLevel(currLevel){
+    var toolboxText = '<xml>';
+    switch(currLevel){
+        case "tut1": 
+            toolboxText += LEVELS.TUT1; 
+            break;
+        case "tut2": 
+            toolboxText += LEVELS.TUT2; 
+            break;
+        case "tut3":
+            toolboxText += LEVELS.TUT3; 
+            break;
+        case "tut4":
+            toolboxText += LEVELS.TUT4; 
+            break;
+        case "tut5":
+            toolboxText += LEVELS.TUT5; 
+            break;
+        case "tut6":
+            toolboxText += LEVELS.TUT6; 
+            break;
+        case "tut7":
+            toolboxText += LEVELS.TUT7; 
+            break;
+        case "2":
+            toolboxText += LEVELS.SECOND; 
+            break;
+        default: 
+            toolboxText += LEVELS.SECOND; 
+            break; 
+    }
+    toolboxText += "</xml>"; 
+    var toolboxXml = Blockly.Xml.textToDom(toolboxText);
+    gameWorkspace.updateToolbox(toolboxXml);
 }
 
 function exportBlocks() {
@@ -212,9 +295,10 @@ function exportBlocks() {
 
         var xml = Blockly.Xml.workspaceToDom(gameWorkspace); 
         var xml_text = Blockly.Xml.domToText(xml);
-        
+        console.log(level); 
         var charSelect = "\n"+playerSelect.name+"\n"; 
-        var finalText = xml_text + charSelect; 
+        var levelSelect = level+"\n"; 
+        var finalText = xml_text + charSelect + levelSelect; 
 
 
         var link = document.createElement('a'); 
@@ -235,27 +319,47 @@ function saveToLocal() {
     var xmlText = Blockly.Xml.domToText(xml);
 
     localStorage.setItem("blocks", xmlText);
-    localStorage.setItem("player", playerSelect.name); 
+    localStorage.setItem("player", playerSelect.name);
+    localStorage.setItem("level", level);  
 }
 
-function loadFromLocal() {
+function loadBlocks() {
     var xmlText = localStorage.getItem("blocks"); 
     var localCharacter = localStorage.getItem("player"); 
-    if(xmlText){
+    var mascot = sessionStorage.getItem("mascot");
+    var loadOnce = sessionStorage.getItem("loadOnce"); 
+    var loadOnceBlocks = sessionStorage.getItem("loadOnceBlocks"); 
+    
+    if(loadOnce){
         gameWorkspace.clear(); 
-        var xml = Blockly.Xml.textToDom(xmlText);
-        selectCharacter(localCharacter);  
+        var xml = Blockly.Xml.textToDom(loadOnceBlocks); 
         Blockly.Xml.domToWorkspace(xml, gameWorkspace);
+        selectCharacter(mascot); 
+        sessionStorage.removeItem("loadOnce");
+        sessionStorage.removeItem("loadOnceBlocks");
+        sessionStorage.removeItem("mascot")
+        saveToLocal(); 
+    }else{
+        selectCharacter(localCharacter);  
+        loadLevel(level);
+        if(xmlText){
+            gameWorkspace.clear(); 
+            var xml = Blockly.Xml.textToDom(xmlText); 
+            Blockly.Xml.domToWorkspace(xml, gameWorkspace);
+        }
+        saveToLocal(); 
     }
-}
+} 
 
 function importBlocks(element) {
     var lines = element.split('\n')
     var xml = Blockly.Xml.textToDom(lines[0]); 
     selectCharacter(lines[1]); 
-    console.log(playerSelect.name); 
+    setLevel(lines[2]);  
     gameWorkspace.clear(); 
     Blockly.Xml.domToWorkspace(xml, gameWorkspace);
+    saveToSession(lines[2]);  
+    //Blockly.Xml.domToWorkspace(xml, gameWorkspace);
 }
 
 function sendBlocks(element) {
@@ -271,15 +375,41 @@ function sendBlocks(element) {
     }
 }
 
+function saveToSession(mascot){
+    if (window.sessionStorage) {
+        var xml = Blockly.Xml.workspaceToDom(gameWorkspace); 
+        var xmlText = Blockly.Xml.domToText(xml);
+        sessionStorage.setItem("loadOnce", true); 
+        sessionStorage.setItem("loadOnceBlocks", xmlText); 
+        sessionStorage.setItem("mascot", mascot); 
+    }
+}
 
 
 function startNewGame() { 
-    if (confirm(language.alert.new)){
+    if (confirm(locale.alert.new)){
+        startGame(); 
+        selectCharacter('blue'); 
+        loadLevel(level); 
+        saveToLocal(); 
+    }
+}
+
+function setNewLevel(){
+    if(level !== MAX_LEVEL){
+        loadBlocks(); 
+        loadLevel(level);
+        saveToLocal(); 
+    }
+    else{
         selectCharacter("none"); 
         gameWorkspace.clear(); 
         modal.style.display = "block"; 
+        loadLevel(level);
         saveToLocal(); 
+        
     }
+    //loadBlocks(); 
     
 }
 
@@ -328,7 +458,9 @@ function loadPlayer(x) {
     player.width = x.width; 
     player.height = x.height; 
     player.maxRunFrames = x.runFrames;  
-    player.size = playerSelect.size;
+    player.size = x.size;
+    player.idleHeight = x.idleHeight;
+    player.idleWidth = x.idleWidth; 
 }
 
 function runButtonClick(e){
@@ -356,6 +488,7 @@ function resetButtonClick(e){
     highlightBlock(null);
     reset(); 
 }
+
 
 /**
  * Inject the game API into the JS Interpreter.
@@ -419,14 +552,21 @@ function apiInterpreter(interpreter, globalObject)
 
 }
 
+let upTimerId
+let downTimerId
+let lastPos;
+let fallPos;
+
 function reset(){
+    clearInterval(downTimerId);
+    clearInterval(upTimerId);
+    player.action = 'idle'  
     player.x = player.startX;
     player.y = player.startY;
     player.dx = 0; 
     player.dy = 0; 
     player.frameX = 0; 
     player.frameY = 0; 
-    player.action = 'idle'  
     player.gravitySpeed = 0; 
     background.src = BACK['RIVER']; 
     light.x  = player.x + 40; 
@@ -458,7 +598,7 @@ function execute(){
     reset();
     Blockly.selected && Blockly.selected.unselect();
     var code = Blockly.JavaScript.workspaceToCode(gameWorkspace);
-    myInterpreter = new Interpreter(code, apiInterpreter);
+    myInterpreter = new Interpreter(code, apiInterpreter); 
     pidList.push(setTimeout(executeChunk_, 500));
     
 }
@@ -484,9 +624,10 @@ function executeChunk_() {
     }
   } while (go);
   if(!highlightPause){
-    player.action = "idle"; 
     document.getElementById('spinner').style.visibility = 'hidden';
+    player.action = "idle"; 
     highlightBlock(null); 
+    checkClearCondition(); 
   }
 
 }
@@ -504,10 +645,7 @@ function getCode() {
 }
 
 
-
 // Core Functions
-let upTimerId
-let downTimerId
 
 function movePlayerRight(value, id) {
     clearInterval(downTimerId);
@@ -518,7 +656,7 @@ function movePlayerRight(value, id) {
     }
     
     highlightBlock(id); 
-    handlePlayerFrame();  
+    handlePlayerFrame(); 
     startAnimating(frameSpeed);  
 }
 
@@ -536,10 +674,10 @@ function movePlayerDown(value, id) {
 }
 
 function movePlayerUp(value, id) {
-    
+    lastPos = player.y
+    fallPos = lastPos - value; 
     if(player.y > 150){
         clearInterval(downTimerId);
-
         player.action = 'jump'
         player.dy = 0; 
         highlightBlock(id);
@@ -547,10 +685,10 @@ function movePlayerUp(value, id) {
              player.dy -= value;
              player.y -= value;  
              light.y += player.dy;
-             if(player.y < 190) {
+             if(player.y < fallPos) {
                  fall(); 
              }
-        }, 110); 
+        }, 60); 
         
     }
     player.gravitySpeed = 0; 
@@ -559,18 +697,19 @@ function movePlayerUp(value, id) {
     startAnimating(frameSpeed); 
 }
 
+
 function fall(){
-    clearInterval(upTimerId);
+    clearInterval(upTimerId); 
     downTimerId = setInterval(function() {
-        if (player.y < 190) {
+        if (player.y < fallPos) {
             player.action = 'fall'; 
             player.gravitySpeed += player.gravity; 
             player.y += player.dy + player.gravitySpeed;  
             light.y += player.dy + player.gravitySpeed; 
             
         }
-        if (player.y >= 190 && player.action === 'fall') { 
-            player.action = 'idle'; 
+        if (player.y >= lastPos && player.action === 'fall') { 
+            player.frameX=3;
         }
     }, 60);
     handlePlayerJumpFrame(); 
@@ -612,7 +751,7 @@ function turnLightOff(id){
 
 function changeBackground(value, id){
     clearInterval(downTimerId);
-    player.action = 'background'; 
+    player.action = 'idle'; 
     if (value in BACK){
         background.src = BACK[value]; 
         startAnimating(frameSpeed);
@@ -631,10 +770,7 @@ function handlePlayerFrame(){
         if(player.frameX < player.maxRunFrames) player.frameX++
         else player.frameX = 0; 
     }
-    if(player.action === "idle"){
-        player.frameY = 0; 
-        player.frameX = 0;
-    }
+    
 
 }
 
@@ -648,7 +784,16 @@ function handlePlayerJumpFrame(){
         else player.frameX = 0
     }
 
+}
 
+function checkClearCondition() {
+    var blockCount = gameWorkspace.getAllBlocks().length; 
+    if(level !== MAX_LEVEL){
+        if(blockCount > 0){
+            saveToLocal(); 
+            nextLevel();  
+        }
+    }
 }
 
 let fps, fpsInterval, startTime, now, then, elapsed; 
@@ -671,12 +816,15 @@ function animate() {
         if(light.visible === true){
             drawSprite(lightSprite, 0, 0, light.width, light.height, light.x, light.y, 250, 150); 
         }  
-        if(player.action === 'jump' || player.action === "fall"){
+        if((player.action === 'jump' || player.action === "fall") && player.action !== "idle"){
             drawSprite(jumpSprite, player.width * player.frameX, player.height * player.frameY, player.width, 
                 player.height, player.x, player.y, player.size, player.size);
             handlePlayerJumpFrame();
         }
-        else if(player.action !== "jump" && player.action !== "fall") {
+        else if (player.action === "idle") {
+            drawSprite(idleSprite, 0, 0, player.idleWidth, player.idleHeight, player.x, player.y, player.size, player.size);
+        }
+        else if(player.action !== "jump" && player.action !== "fall" && player.action !=="idle") {
             
             drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, 
                 player.height, player.x, player.y, player.size, player.size);
@@ -685,4 +833,3 @@ function animate() {
     }  
 }
 startAnimating(frameSpeed); 
-

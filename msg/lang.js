@@ -1,6 +1,7 @@
 var lang = 
 {
     en: {
+        name: "en", 
         header: {
             file: "File",
             new: "New Project", 
@@ -15,6 +16,16 @@ var lang =
             code: "Code", 
             view: "View"
         },
+
+        block: {
+            off: "Off"
+        },
+
+        category: {
+            move: "Move", 
+            scene: "Scene", 
+            loop: "Loops"
+        }, 
         
         alert:{
             new: "Start new game?"
@@ -22,6 +33,7 @@ var lang =
     },
 
     ar: {
+        name: "ar", 
         header: {
             file: "الملف",
             new: "مشروع جديد", 
@@ -37,8 +49,18 @@ var lang =
             view: "رأي"
         }, 
 
+        block: {
+            off: "إيقاف"
+        }, 
+
+        category: {
+            move: "الحركة", 
+            scene: "المشهد" , 
+            loop: "الحلقات"
+        }, 
+
         alert:{
-            new: "Start new game?"
+            new: "ابدأ لعبة جديدة"
         }
     }
 

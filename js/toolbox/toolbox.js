@@ -1,5 +1,3 @@
-
-
 class ToolboxLabel extends Blockly.ToolboxItem {
 
     constructor(toolboxItemDef, parentToolbox)

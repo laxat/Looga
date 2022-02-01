@@ -1,6 +1,7 @@
 
 MOVEMENT_HUE = 290;
 LOOPS_HUE = 120; 
+var locale = getMsg(); 
 
 Blockly.Blocks['robot_moveRight'] = {
     init: function() {
@@ -176,7 +177,7 @@ Blockly.Blocks['robot_light'] = {
           "*"))
           .appendField(
             new Blockly.FieldDropdown([
-              ["إيقاف", 'OFF'], 
+              [locale.block.off, 'OFF'], 
                 [{"src":"common/red.jpg","width":15,"height":15,"alt":"red"}, 'RED'], 
                 [{"src":"common/blue.png","width":15,"height":15,"alt":"blue"},'BLUE'], 
                 [{"src":"common/green.png","width":15,"height":15,"alt":"green"} , 'GREEN']
