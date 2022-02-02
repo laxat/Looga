@@ -31,7 +31,7 @@
                           <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
                           <a href="#" class="dropdown-item" onclick="changeLanguage('ar')">عربى</a>
                       </div>
-                  </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" id="file" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">File</a>
                         <div class="dropdown-menu">
@@ -40,6 +40,9 @@
                             <a href="#" id="load" class="dropdown-item">Load Project</a>
                             <!-- onclick="document.getElementById('impFile').click();" -->
                         </div>
+                    </div>
+                    <div class="nav-item">
+                      <a href="#" id="help" class="nav-link" onclick="loadIntroDialog()">Help</a>
                     </div>
                   </div>
               </div>
@@ -78,6 +81,26 @@
                   <div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Load saved game</span>
                       <div class="mt-2" id="stateDesc"> <span class="intro-2">If you have an old saved game, click to load from the file</span></div>
                       <div class="mt-4 mb-5"><button class="btn btn-primary" id="loadBtn" onclick="document.getElementById('impFile').click()">Load Game  <i class="fa fa-file" aria-hidden="true"></i></button></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="gameDesc" class="mod"></div>
+
+    <div id="winner" class="mod">
+      <div class="intro-modal-content">
+        <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="text-center mt-2"> <img src="common/sprites/redbot/red-idle.png" width="200"></div>
+              </div>
+              <div class="col-md-6">
+                  <div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Congratulations!!!</span>
+                      <div class="mt-2" id="stateDesc"> <span class="intro-2">Hurray you have completed this level, you can now move on the the next one </span></div>
+                      <div class="mt-4 mb-5"><button class="btn btn-primary" onclick="nextLevel();">Next Level</button></div>
                   </div>
               </div>
           </div>
@@ -173,20 +196,22 @@
         <script>
           var newLevel = isNewLevel; 
           if(window.location.hash === "#new"){
-            selectCharacter('none');
-            loadLevel('tut1'); 
-            document.getElementById('newDesc').style.display = 'block';  
+            //loadLevel('tut1'); 
+            localStorage.removeItem('player'); 
+            document.getElementById('newDesc').style.display = 'block'; 
           }
           if(window.location.hash === "#load"){
             document.getElementById('loadDesc').style.display = 'block'; 
           }
           if (window.performance.navigation.type == window.performance.navigation.TYPE_RELOAD) {
+              document.getElementById('gameDesc').style.display = "none"; 
               loadBlocks(); 
               loadLevel(level); 
               checkLevel(); 
             console.info( "This page is reloaded");
           } else {
               console.info( "This page is not reloaded");
+              localStorage.setItem('dialogLoaded', true); 
               localStorage.removeItem("blocks");
               setNewLevel(); 
           }

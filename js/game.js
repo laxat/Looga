@@ -105,6 +105,7 @@ const PLAYER = {
 
 }
 var playerSelect = PLAYER.NONE; 
+//selectCharacter('none'); 
 const BACK = {
 
     "RIVER": "common/background/back1.png",
@@ -288,6 +289,7 @@ function loadLevel(currLevel){
     toolboxText += "</xml>"; 
     var toolboxXml = Blockly.Xml.textToDom(toolboxText);
     gameWorkspace.updateToolbox(toolboxXml);
+    setTimeout(loadIntroDialog, 2000); 
 }
 
 function exportBlocks() {
@@ -626,6 +628,7 @@ function executeChunk_() {
   if(!highlightPause){
     document.getElementById('spinner').style.visibility = 'hidden';
     player.action = "idle"; 
+    light.visible = false; 
     highlightBlock(null); 
     checkClearCondition(); 
   }
@@ -649,7 +652,8 @@ function getCode() {
 
 function movePlayerRight(value, id) {
     clearInterval(downTimerId);
-    if (player.x < canvas.width - 100) {  
+    if (player.x < canvas.width - 100) { 
+        player.frameY = 0; 
         player.action = 'right'; 
         player.x += value; 
         light.x += value;   
@@ -719,7 +723,8 @@ function fall(){
 function movePlayerLeft(value, id){
     clearInterval(downTimerId);
     if(player.x > 0){
-        player.action = 'left'  
+        player.action = 'left';
+        player.frameY = 1;
         player.x -= value; 
         light.x -= value; 
 
@@ -760,17 +765,19 @@ function changeBackground(value, id){
 }
 
 function handlePlayerFrame(){ 
-    if(player.action === 'right'){ 
-        player.frameY = 0; 
+
+    if(player.action === 'right'){  
         if(player.frameX < player.maxRunFrames) player.frameX++
         else player.frameX = 0; 
     }
-    if(player.action === 'left'){ 
-        player.frameY = 1; 
+    if(player.action === 'left'){  
         if(player.frameX < player.maxRunFrames) player.frameX++
         else player.frameX = 0; 
     }
-    
+    if(player.action === 'down'){  
+        if(player.frameX < player.maxRunFrames) player.frameX++
+        else player.frameX = 0; 
+    }
 
 }
 
@@ -791,7 +798,7 @@ function checkClearCondition() {
     if(level !== MAX_LEVEL){
         if(blockCount > 0){
             saveToLocal(); 
-            nextLevel();  
+            LoadWinner(); 
         }
     }
 }
