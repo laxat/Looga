@@ -44,7 +44,7 @@ var DESC = {
             '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-select.png" width="200">' + 
             '<img id="pg1" src="common/desc/tut1/page1.gif" width="200">' + 
             '<img id="pg2" src="common/desc/tut1/run.png" width="200">' + 
-            '<img id="pg3" src="common/desc/tut1/play.gif" width="200">' + 
+            '<img id="pg3" src="common/desc/tut1/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
               '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 01 - Tutorial 01</span>' +
               '<div class="mt-2" id="stateDesc">' +
@@ -177,6 +177,28 @@ var DESC = {
                 '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
                 '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Close</button>' +
             '</div></div> </div> </div> </div> </div>',
+
+    LEVEL2: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
+            '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/key.png" width="200">' + 
+            '<img id="pg1" src="common/sprites/door_open.png" width="200">' + 
+            '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
+            '<img id="pg3" src="common/desc/lvl2/reset.png" width="200">' + 
+            '<img id="pg4" src="common/desc/lvl2/play.gif" width="300" style="display: none">' + 
+            '</div> </div> <div class="col-md-6">' +
+            '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 02 - Key and Door</span>' +
+            '<div class="mt-2" id="stateDesc">' +
+            '<span id="desc0" class="intro-2" style="display: inline">In this level, you will be using blocks to open a door </span>' + 
+            '<span id="desc1" class="intro-2" style="display: none"> You will drag blocks into the workspace to reach the key and open the door </span>' + 
+            '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button</span>' + 
+            '<span id="desc3" class="intro-2" style="display: none">If you feel you have made a mistake, click Reset to try again </span>' + 
+            '<span id="desc4" class="intro-2" style="display: none"> When you have the key the door will open and you can have to leave the level through the door</span>' + 
+                '</div><div class="mt-4 mb-5">'+  
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Next</button>' +
+                '<button id="btn4" class="btn btn-primary" style="display: none" onclick="'+"closeDialog('pg4')"+'" >Close</button>' +
+            '</div></div> </div> </div> </div> </div>',
 }; 
 
 
@@ -190,8 +212,10 @@ function nextLevel() {
     if (level !== MAX_LEVEL){
         let current = levelList.findIndex((element) => element === level);  
         window.location.search = "?lang="+locale.name+"&level="+levelList[current+1]; 
-        //location.reload();
-        
+        //location.reload()    
+    }
+    else{
+        window.location.href = "index.html";  
     }
 }
 
@@ -240,6 +264,13 @@ function loadIntroDialog(){
         case "tut7":
             gameDesc.innerHTML = DESC.TUT7;
             break;
+        case "2":
+            document.getElementById("desc-tut").style.display = 'none'; 
+            document.getElementById("desc-lvl").style.display = 'inline';
+            document.getElementById("btn-tut").style.display = 'none'; 
+            document.getElementById("btn-lvl").style.display = 'inline'; 
+            gameDesc.innerHTML = DESC.LEVEL2;
+            break;
     }
     if (window.performance.navigation.type != window.performance.navigation.TYPE_RELOAD) {
         gameDesc.style.display = "block"; 
@@ -278,13 +309,16 @@ function closeDialog(id){
         case 'pg3':
             document.getElementById('pg3').style.display = "none"; 
             document.getElementById('btn3').style.display = "none";
-            document.getElementById('desc3').style.display = "none"; 
-            document.getElementById('pg0').style.display = "inline"; 
-            document.getElementById('btn0').style.display = "inline";
-            document.getElementById('desc0').style.display = "inline"; 
-            document.getElementById('gameDesc').style.display = "none"; 
+            document.getElementById('desc3').style.display = "none";
+            if(level !== MAX_LEVEL)document.getElementById('gameDesc').style.display = "none"
+            else{
+                document.getElementById('pg4').style.display = "inline"; 
+                document.getElementById('btn4').style.display = "inline";
+                document.getElementById('desc4').style.display = "inline"; 
+                }
             break; 
-                
+        case 'pg4':
+            document.getElementById('gameDesc').style.display = "none";    
     }
     // var gameDesc = document.getElementById('gameDesc'); 
     // gameDesc.style.display = "none";

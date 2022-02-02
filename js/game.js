@@ -137,10 +137,26 @@ const player = {
     action: 'idle',
     gravity: 10,
     gravitySpeed: 0, 
-    size: playerSelect.size
-
+    size: playerSelect.size, 
 };
 
+const key = {
+    x: Math.floor((Math.random() * (350 - 0) + 0)),
+    y: Math.floor((Math.random() * (350 - 0) + 0)),
+    width: 100, 
+    height: 100,  
+    size: 40,
+    isPicked: false
+}
+
+const door = {
+    x: Math.floor((Math.random() * (350 - 0) + 0)),
+    y: Math.floor((Math.random() * (350 - 0) + 0)),
+    width: 1301, 
+    height: 1301,
+    size: 90,
+    isOpen: false
+}
  
 const playerSprite = new Image(); 
 playerSprite.src = playerSelect.run;
@@ -152,6 +168,10 @@ const background = new Image();
 background.src = BACK["RIVER"];
 const lightSprite = new Image(); 
 lightSprite.src = LIGHT_COLOUR["RED"];  
+const doorSprite = new Image(); 
+doorSprite.src = "common/sprites/door_closed.png";
+const keySprite = new Image(); 
+keySprite.src = "common/sprites/key.png";
 
 var onresize = function(e) {
     var top = visualization.offsetTop;
@@ -281,15 +301,16 @@ function loadLevel(currLevel){
             break;
         case "2":
             toolboxText += LEVELS.SECOND; 
+            // drawInitLevel();
             break;
-        default: 
+        default:  
             toolboxText += LEVELS.SECOND; 
             break; 
     }
     toolboxText += "</xml>"; 
     var toolboxXml = Blockly.Xml.textToDom(toolboxText);
     gameWorkspace.updateToolbox(toolboxXml);
-    setTimeout(loadIntroDialog, 2000); 
+    setTimeout(loadIntroDialog, 200); 
 }
 
 function exportBlocks() {
@@ -462,7 +483,7 @@ function loadPlayer(x) {
     player.maxRunFrames = x.runFrames;  
     player.size = x.size;
     player.idleHeight = x.idleHeight;
-    player.idleWidth = x.idleWidth; 
+    player.idleWidth = x.idleWidth 
 }
 
 function runButtonClick(e){
@@ -576,6 +597,9 @@ function reset(){
     light.visible = false; 
     gameWorkspace.highlightBlock(null); 
     highlightPause = false; 
+    key.isPicked = false;
+    door.isOpen = false; 
+    doorSprite.src = "common/sprites/door_closed.png"; 
     
     for (var i = 0; i < pidList.length; i++) {
         clearTimeout(pidList[i]);
@@ -801,6 +825,11 @@ function checkClearCondition() {
             LoadWinner(); 
         }
     }
+    else{
+        if(key.isPicked && door.isOpen && checkCollision(player, door)){
+            LoadWinner(); 
+        }
+    }
 }
 
 let fps, fpsInterval, startTime, now, then, elapsed; 
@@ -812,6 +841,46 @@ function startAnimating(fps){
     animate(); 
 }
 
+function checkCollision(a, b){ 
+    return !(
+        ((a.y + a.size) <= (b.y)) ||
+        (a.y >= (b.y + b.size)) ||
+        ((a.x + a.size) <= b.x) ||
+        (a.x >= (b.x + b.size))
+    );
+}
+console.log(checkCollision(player, key))
+function drawInitLevel(){
+    if(level === MAX_LEVEL){
+        if(!checkCollision(key, door))
+        { 
+            console.log("door + key"); 
+            key.x = door.x > 250 ? door.x + 80: door.x + player.size; 
+            key.y = door.y < 90 ? door.y + player.size: door.y - 80;
+        }
+        if(checkCollision(key, player))
+        {
+            key.x =  door.x + player.size + 50; 
+            key.y = door.y + player.size + 50;
+        }
+        
+    }
+}
+
+function setLevel(){
+    if(checkCollision(player, key)){
+        console.log("Here we go"); 
+        key.isPicked = true;
+        door.isOpen = true; 
+        doorSprite.src = "common/sprites/door_open.png"; 
+    }
+
+    if(checkCollision(player, door) && door.isOpen === true){
+        checkClearCondition(); 
+    }
+}
+
+
 function animate() {
     requestAnimationFrame(animate); 
     now = Date.now(); 
@@ -819,7 +888,13 @@ function animate() {
     if(elapsed > fpsInterval) { 
         then = now - (elapsed % fpsInterval); 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height); 
+        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);   
+        if(level === MAX_LEVEL){
+            drawSprite(doorSprite, 0, 0, door.width, door.height, door.x, door.y, door.size, door.size); 
+            if (!key.isPicked){
+                drawSprite(keySprite, 0, 0, key.width, key.height, key.x, key.y, key.size, key.size); 
+            }
+        } 
         if(light.visible === true){
             drawSprite(lightSprite, 0, 0, light.width, light.height, light.x, light.y, 250, 150); 
         }  
@@ -837,6 +912,8 @@ function animate() {
                 player.height, player.x, player.y, player.size, player.size);
             handlePlayerFrame();
         }
-    }  
+        
+    }
+   setLevel(); 
 }
 startAnimating(frameSpeed); 
