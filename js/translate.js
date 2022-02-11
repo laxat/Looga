@@ -64,12 +64,12 @@ function setMsg(lang){
     //Load Game Modal
     changeElement('load-title', lang.desc.load.title); 
     changeElement('load-info', lang.desc.load.info); 
-    document.getElementById("loadBtn").innerHTML = lang.desc.load.title +  '<i class="fa fa-file" aria-hidden="true"></i>'; 
+    document.getElementById("loadBtn").innerHTML = lang.desc.load.title; 
 
     //New Game Modal
     changeElement('new-title', lang.desc.new.title); 
     changeElement('new-info', lang.desc.new.info);
-    document.getElementById("newBtn").innerHTML = lang.desc.new.title + '<i class="fa fa-gamepad" aria-hidden="true"></i>'; 
+    document.getElementById("newBtn").innerHTML = lang.desc.new.title; 
 
     //Win Game Modal
     changeElement('win-title', lang.desc.winner.title); 
