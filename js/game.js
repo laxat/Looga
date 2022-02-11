@@ -52,7 +52,7 @@ const PLAYER = {
         runFrames: 0,
         jumpFrame: 0, 
         fallFrame: 0, 
-        runSize: 125, 
+        size: 125, 
         idleSize: 125
     },
 
@@ -68,7 +68,8 @@ const PLAYER = {
         runFrames: 5,
         jumpFrame: 1, 
         fallFrame: 2,
-        size: 100
+        size: 100,
+        idleSize: 100
     }, 
 
     CAT: {
@@ -84,7 +85,8 @@ const PLAYER = {
         runFrames: 3,
         jumpFrame: 0, 
         fallFrame: 1, 
-        size: 125
+        size: 125, 
+        idleSize: 85
         
     }, 
 
@@ -100,12 +102,12 @@ const PLAYER = {
         runFrames: 5,
         jumpFrame: 0, 
         fallFrame: 1,
-        size: 100
+        size: 100,
+        idleSize: 100
     }
 
 }
 var playerSelect = PLAYER.NONE; 
-//selectCharacter('none'); 
 const BACK = {
 
     "RIVER": "common/background/back1.png",
@@ -138,6 +140,7 @@ const player = {
     gravity: 10,
     gravitySpeed: 0, 
     size: playerSelect.size, 
+    idleSize: playerSelect.idleSize
 };
 
 const key = {
@@ -188,6 +191,7 @@ if (blocklyDiv){
     var gameWorkspace = Blockly.inject('blocklyDiv', {
         toolbox: document.getElementById('toolbox'), 
         renderer: "zelos",
+        theme: Blockly.Themes.Looga, 
         zoom: 
         {
             controls: true, 
@@ -201,7 +205,7 @@ if (blocklyDiv){
     'turnLightOn,turnLightOff');
 
     ///gameWorkspace.registerButtonCallback("COLOUR_PALETTE", coloursFlyoutCallback); 
-    
+    gameWorkspace.toolbox_.flyout_.autoClose = false; 
     gameWorkspace.addChangeListener(function(event) {
         if (!(event instanceof Blockly.Events.Ui)) {
           // Something changed. Parser needs to be reloaded.
@@ -260,7 +264,7 @@ function selectCharacter(name) {
             isPlayerPicked = true; 
             break; 
         default: 
-            playerSelect = PLAYER.BLUE;
+            playerSelect = PLAYER.ROBOT;
             isPlayerPicked = true; 
             break; 
     }
@@ -276,32 +280,44 @@ function selectCharacter(name) {
 }
 
 function loadLevel(currLevel){
+      
     var toolboxText = '<xml>';
     switch(currLevel){
         case "tut1": 
+            selectCharacter('robot'); 
             toolboxText += LEVELS.TUT1; 
             break;
         case "tut2": 
+            selectCharacter('robot'); 
             toolboxText += LEVELS.TUT2; 
             break;
         case "tut3":
+            selectCharacter('robot'); 
             toolboxText += LEVELS.TUT3; 
             break;
         case "tut4":
+            selectCharacter('robot'); 
             toolboxText += LEVELS.TUT4; 
             break;
         case "tut5":
+            selectCharacter('robot'); 
             toolboxText += LEVELS.TUT5; 
             break;
         case "tut6":
+            selectCharacter('robot'); 
             toolboxText += LEVELS.TUT6; 
             break;
         case "tut7":
+            selectCharacter('robot'); 
             toolboxText += LEVELS.TUT7; 
+            break;
+        case "1":
+            selectCharacter('robot'); 
+            toolboxText += LEVELS.FIRST; 
             break;
         case "2":
             toolboxText += LEVELS.SECOND; 
-            // drawInitLevel();
+            drawInitLevel();
             break;
         default:  
             toolboxText += LEVELS.SECOND; 
@@ -412,21 +428,21 @@ function saveToSession(mascot){
 function startNewGame() { 
     if (confirm(locale.alert.new)){
         startGame(); 
-        selectCharacter('blue'); 
+        selectCharacter('robot'); 
         loadLevel(level); 
         saveToLocal(); 
     }
 }
 
 function setNewLevel(){
-    if(level !== MAX_LEVEL){
+    if(level !=="2"){
         loadBlocks(); 
         loadLevel(level);
         saveToLocal(); 
     }
     else{
         selectCharacter("none"); 
-        gameWorkspace.clear(); 
+        gameWorkspace.clear();
         modal.style.display = "block"; 
         loadLevel(level);
         saveToLocal(); 
@@ -482,6 +498,7 @@ function loadPlayer(x) {
     player.height = x.height; 
     player.maxRunFrames = x.runFrames;  
     player.size = x.size;
+    player.idleSize = x.idleSize; 
     player.idleHeight = x.idleHeight;
     player.idleWidth = x.idleWidth 
 }
@@ -819,16 +836,14 @@ function handlePlayerJumpFrame(){
 
 function checkClearCondition() {
     var blockCount = gameWorkspace.getAllBlocks().length; 
-    if(level !== MAX_LEVEL){
+    if(level !== "2" && level != MAX_LEVEL){
         if(blockCount > 0){
             saveToLocal(); 
             LoadWinner(); 
         }
     }
-    else{
-        if(key.isPicked && door.isOpen && checkCollision(player, door)){
-            LoadWinner(); 
-        }
+    else if(level === '2'){
+        if(key.isPicked && door.isOpen && checkCollision(player, door)){LoadWinner();}
     }
 }
 
@@ -851,32 +866,34 @@ function checkCollision(a, b){
 }
 console.log(checkCollision(player, key))
 function drawInitLevel(){
-    if(level === MAX_LEVEL){
-        if(!checkCollision(key, door))
+    if(level === "2"){
+        while(checkCollision(key, door))
         { 
             console.log("door + key"); 
-            key.x = door.x > 250 ? door.x + 80: door.x + player.size; 
-            key.y = door.y < 90 ? door.y + player.size: door.y - 80;
+            door.x = Math.floor((Math.random() * (350 - 0) + 0)); 
+            door.y = Math.floor((Math.random() * (350 - 0) + 0)); 
         }
-        if(checkCollision(key, player))
+        while(checkCollision(key, player))
         {
-            key.x =  door.x + player.size + 50; 
-            key.y = door.y + player.size + 50;
+            console.log("player + key");
+            key.x =  Math.floor((Math.random() * (350 - 0) + 0)); 
+            key.y = Math.floor((Math.random() * (350 - 0) + 0)); 
         }
-        
+        return true;  
     }
 }
 
-function setLevel(){
-    if(checkCollision(player, key)){
-        console.log("Here we go"); 
-        key.isPicked = true;
-        door.isOpen = true; 
-        doorSprite.src = "common/sprites/door_open.png"; 
-    }
+function adventClear(){
+    if(level === "2"){
+        if(checkCollision(player, key)){
+            key.isPicked = true;
+            door.isOpen = true; 
+            doorSprite.src = "common/sprites/door_open.png"; 
+        }
 
-    if(checkCollision(player, door) && door.isOpen === true){
-        checkClearCondition(); 
+        if(checkCollision(player, door) && door.isOpen === true){
+            checkClearCondition(); 
+        }
     }
 }
 
@@ -889,9 +906,11 @@ function animate() {
         then = now - (elapsed % fpsInterval); 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);   
-        if(level === MAX_LEVEL){
+        if(level === "2"){
+            adventClear();
             drawSprite(doorSprite, 0, 0, door.width, door.height, door.x, door.y, door.size, door.size); 
             if (!key.isPicked){
+                drawInitLevel()
                 drawSprite(keySprite, 0, 0, key.width, key.height, key.x, key.y, key.size, key.size); 
             }
         } 
@@ -904,7 +923,7 @@ function animate() {
             handlePlayerJumpFrame();
         }
         else if (player.action === "idle") {
-            drawSprite(idleSprite, 0, 0, player.idleWidth, player.idleHeight, player.x, player.y, player.size, player.size);
+            drawSprite(idleSprite, 0, 0, player.idleWidth, player.idleHeight, player.x, player.y, player.idleSize, player.idleSize);
         }
         else if(player.action !== "jump" && player.action !== "fall" && player.action !=="idle") {
             
@@ -914,6 +933,6 @@ function animate() {
         }
         
     }
-   setLevel(); 
+    
 }
 startAnimating(frameSpeed); 

@@ -1,0 +1,31 @@
+{
+    "name": "en", 
+    "header": {
+        "file": "File",
+        "new": "New Project", 
+        "load": "Load Project",
+        "save": "Save Project"
+    },
+
+    "button": {
+        "run": "Run", 
+        "reset": "Reset", 
+        "step": "Take Step", 
+        "code": "Code", 
+        "view": "View"
+    },
+
+    "block": {
+        "off": "Off"
+    },
+
+    "category": {
+        "move": "Motion", 
+        "scene": "Scene", 
+        "loop": "Loops"
+    }, 
+    
+    "alert":{
+        "new": "Start new game?"
+    }
+}

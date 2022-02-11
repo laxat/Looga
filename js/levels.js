@@ -1,6 +1,6 @@
 var locale = getMsg(); 
 var level = new URLSearchParams(window.location.search).get('level');
-const MAX_LEVEL = '2'; 
+const MAX_LEVEL = '1'; 
 var isNewGame = false; 
 var isNewLevel = false;
 
@@ -30,9 +30,16 @@ var LEVELS = {
     '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
     '</block></category>',
 
-    SECOND: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'  + 
+    FIRST: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="list_category">'  + 
     '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block></category>'+
-    '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="logic_category"><block type="robot_back"></block><block type="robot_light"></block></category>' +
+    '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="text_category"><block type="robot_back"></block><block type="robot_light"></block></category>' +
+    '<category name="'+locale.category.loop+'" css-icon="customIcon fa fa-refresh" categorystyle="loop_category">'+
+    '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
+    '</block></category>', 
+
+    SECOND: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="list_category">'  + 
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block></category>'+
+    '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="text_category"><block type="robot_back"></block><block type="robot_light"></block></category>' +
     '<category name="'+locale.category.loop+'" css-icon="customIcon fa fa-refresh" categorystyle="loop_category">'+
     '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
     '</block></category>'
@@ -46,17 +53,17 @@ var DESC = {
             '<img id="pg2" src="common/desc/tut1/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut1/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-              '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 01 - Tutorial 01</span>' +
+              '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut1.title+'</span>' +
               '<div class="mt-2" id="stateDesc">' +
-              '<span id="desc0" class="intro-2" style="display: inline">In this level, you will make the player step right </span>' + 
-              '<span id="desc1" class="intro-2" style="display: none">Click the move category, on the leftr side of the page, you can drag the move-right block into the workspace </span>' + 
-              '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button </span>' + 
-              '<span id="desc3" class="intro-2" style="display: none">After that you will see the player runs right</span>' + 
+              '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut1.page1+'</span>' + 
+              '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut1.page2+'</span>' + 
+              '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut1.page3+' </span>' + 
+              '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut1.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+
-                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
-                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
-                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
-                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Close</button>' +
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
               '</div></div> </div> </div> </div> </div>', 
     
     TUT2: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
@@ -65,17 +72,17 @@ var DESC = {
               '<img id="pg2" src="common/desc/tut2/run.png" width="200">' + 
               '<img id="pg3" src="common/desc/tut2/play.gif" width="300">' + 
               '</div> </div> <div class="col-md-6">' +
-                '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 01 - Tutorial 02</span>' +
+                '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut2.title+'</span>' +
                 '<div class="mt-2" id="stateDesc">' +
-                '<span id="desc0" class="intro-2" style="display: inline">In this level, you will make the player step left </span>' + 
-                '<span id="desc1" class="intro-2" style="display: none">Click the move category, and drag the block, you connecty blocks together like this </span>' + 
-                '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button </span>' + 
-                '<span id="desc3" class="intro-2" style="display: none">After that you will see the player runs left 2 times now</span>' + 
+                '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut2.page1+'</span>' + 
+                '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut2.page2+'</span>' + 
+                '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut2.page3+'</span>' + 
+                '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut2.page4+'</span>' + 
                   '</div><div class="mt-4 mb-5">'+
-                  '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
-                  '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
-                  '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
-                  '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Close</button>' +
+                  '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                  '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                  '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                  '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
                 '</div></div> </div> </div> </div> </div>', 
 
     TUT3: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
@@ -84,17 +91,17 @@ var DESC = {
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut3/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-                '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 01 - Tutorial 03</span>' +
+                '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut3.title+'</span>' +
                 '<div class="mt-2" id="stateDesc">' +
-                '<span id="desc0" class="intro-2" style="display: inline">In this level, you will make the player step down </span>' + 
-                '<span id="desc1" class="intro-2" style="display: none">Click the move category, and drag the block to the workspace </span>' + 
-                '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button </span>' + 
-                '<span id="desc3" class="intro-2" style="display: none">After that you will see the player now goes down 2 times/span>' + 
+                '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut3.page1+'</span>' + 
+                '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut3.page2+' </span>' + 
+                '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut3.page3+'</span>' + 
+                '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut3.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+
-                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
-                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
-                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
-                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Close</button>' +
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
                 '</div></div> </div> </div> </div> </div>', 
     
     TUT4: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
@@ -103,18 +110,17 @@ var DESC = {
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut4/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-                '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 01 - Tutorial 04</span>' +
+                '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut4.title+'</span>' +
                 '<div class="mt-2" id="stateDesc">' +
-                '<span id="desc0" class="intro-2" style="display: inline">In this level, you will make the player jump </span>' + 
-                '<span id="desc1" class="intro-2" style="display: none">Click the move category, and drag the block to the workspace. You can also change'+
-                ' the intensity of the jump by changing the value </span>' + 
-                '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button </span>' + 
-                '<span id="desc3" class="intro-2" style="display: none">After that you will see the player now jump </span>' + 
+                '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut4.page1+'</span>' + 
+                '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut4.page2+'</span>' + 
+                '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut4.page3+'</span>' + 
+                '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut4.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+
-                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
-                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
-                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
-                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Close</button>' +
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
                 '</div></div> </div> </div> </div> </div>', 
     
     TUT5: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
@@ -123,18 +129,17 @@ var DESC = {
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut5/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-            '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 01 - Tutorial 05</span>' +
+            '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut5.title+'</span>' +
             '<div class="mt-2" id="stateDesc">' +
-            '<span id="desc0" class="intro-2" style="display: inline">In this level, you will turn on the players light </span>' + 
-            '<span id="desc1" class="intro-2" style="display: none">Click the Scene category, and drag the block to the workspace. You can also change'+
-            ' the color of the lamp and turn it on. Try to copy this sequence (its not required but could be cool) </span>' + 
-            '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button </span>' + 
-            '<span id="desc3" class="intro-2" style="display: none">After that you will see the player have a light on/off </span>' + 
+            '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut5.page1+'</span>' + 
+            '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut5.page2+'</span>' + 
+            '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut5.page3+'</span>' + 
+            '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut5.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+  
-                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
-                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
-                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
-                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Close</button>' +
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
             '</div></div> </div> </div> </div> </div>', 
     
     TUT6: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
@@ -143,18 +148,17 @@ var DESC = {
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut6/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-                '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 01 - Tutorial 06</span>' +
+                '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut6.title+'</span>' +
                 '<div class="mt-2" id="stateDesc">' +
-                '<span id="desc0" class="intro-2" style="display: inline">In this level, you will change the background</span>' + 
-                '<span id="desc1" class="intro-2" style="display: none">Click the Scene category, and drag the block to the workspace. This block can change'+
-                ' the background of the game, there are 3 options so far. </span>' + 
-                '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button </span>' + 
-                '<span id="desc3" class="intro-2" style="display: none">After that you will see the background has changed </span>' + 
+                '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut6.page1+'</span>' + 
+                '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut6.page2+'</span>' + 
+                '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut6.page3+'</span>' + 
+                '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut6.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+  
-                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
-                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
-                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
-                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Close</button>' +
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
                 '</div></div> </div> </div> </div> </div>', 
     
     TUT7: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
@@ -163,19 +167,36 @@ var DESC = {
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut7/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-            '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 01 - Tutorial 07</span>' +
+            '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut7.title+'</span>' +
             '<div class="mt-2" id="stateDesc">' +
-            '<span id="desc0" class="intro-2" style="display: inline">In this level, you will learn how to use loops</span>' + 
-            '<span id="desc1" class="intro-2" style="display: none">Click the Loops category, and drag the block to the workspace. then drag the '+
-            'move block from the move category. you can chnage the number of loops by changing the text of the block. </span>' + 
-            '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button </span>' + 
-            '<span id="desc3" class="intro-2" style="display: none">After that you will see the player can move once 5 times. you can loop any other type of' + 
-            ' blocks that were shown in the other levels </span>' + 
+            '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut7.page1+'</span>' + 
+            '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut7.page2+' </span>' + 
+            '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut7.page3+'</span>' + 
+            '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut7.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+  
-                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
-                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
-                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
-                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Close</button>' +
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
+            '</div></div> </div> </div> </div> </div>',
+
+    LEVEL1: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
+            '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-select.png" width="200">' + 
+            '<img id="pg1" src="common/desc/lvl1/blocks.gif" width="320">' + 
+            '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
+            '<img id="pg3" src="common/desc/lvl1/play.gif" width="300">' + 
+            '</div> </div> <div class="col-md-6">' +
+            '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.level1.title+'</span>' +
+            '<div class="mt-2" id="stateDesc">' +
+            '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.level1.page1+'</span>' + 
+            '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.level1.page2+'</span>' + 
+            '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.level1.page3+'</span>' + 
+            '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.level1.page4+' </span>' + 
+                '</div><div class="mt-4 mb-5">'+  
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
             '</div></div> </div> </div> </div> </div>',
 
     LEVEL2: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
@@ -185,21 +206,27 @@ var DESC = {
             '<img id="pg3" src="common/desc/lvl2/reset.png" width="200">' + 
             '<img id="pg4" src="common/desc/lvl2/play.gif" width="300" style="display: none">' + 
             '</div> </div> <div class="col-md-6">' +
-            '<div class="text-white mt-4" id="stateTitle"> <span class="intro-1">Level 02 - Key and Door</span>' +
+            '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.level2.title+'</span>' +
             '<div class="mt-2" id="stateDesc">' +
-            '<span id="desc0" class="intro-2" style="display: inline">In this level, you will be using blocks to open a door </span>' + 
-            '<span id="desc1" class="intro-2" style="display: none"> You will drag blocks into the workspace to reach the key and open the door </span>' + 
-            '<span id="desc2" class="intro-2" style="display: none">When you are ready click the play button</span>' + 
-            '<span id="desc3" class="intro-2" style="display: none">If you feel you have made a mistake, click Reset to try again </span>' + 
-            '<span id="desc4" class="intro-2" style="display: none"> When you have the key the door will open and you can have to leave the level through the door</span>' + 
+            '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.level2.page1+'</span>' + 
+            '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.level2.page2+'</span>' + 
+            '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.level2.page3+'</span>' + 
+            '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.level2.page4+'</span>' + 
+            '<span id="desc4" class="intro-2" style="display: none">'+locale.desc.level2.page5+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+  
-                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">Next</button>' +
-                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">Next</button>' +
-                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">Next</button>' +
-                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">Next</button>' +
-                '<button id="btn4" class="btn btn-primary" style="display: none" onclick="'+"closeDialog('pg4')"+'" >Close</button>' +
+                '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.next+'</button>' +
+                '<button id="btn4" class="btn btn-primary" style="display: none" onclick="'+"closeDialog('pg4')"+'" >'+locale.button.close+'</button>' +
             '</div></div> </div> </div> </div> </div>',
 }; 
+
+if(level != MAX_LEVEL && level != "2"){
+    document.getElementById('skip-tut').style.display = "block"; 
+} else {
+    document.getElementById('skip-lvl').style.display = 'none'; 
+}
 
 
 function startGame() {
@@ -207,14 +234,15 @@ function startGame() {
     isNewGame=true; 
 }
 
-const levelList = ['tut1', 'tut2', 'tut3', 'tut4', 'tut5', 'tut6', 'tut7', '2']; 
+const levelList = ['tut1', 'tut2', 'tut3', 'tut4', 'tut5', 'tut6', 'tut7', '1', '2']; 
 function nextLevel() {
-    if (level !== MAX_LEVEL){
+    if (level !== MAX_LEVEL && level !== '2'){
         let current = levelList.findIndex((element) => element === level);  
         window.location.search = "?lang="+locale.name+"&level="+levelList[current+1]; 
         //location.reload()    
     }
-    else{
+    else if(level === '2'){
+        localStorage.removeItem("level"); 
         window.location.href = "index.html";  
     }
 }
@@ -232,8 +260,8 @@ function checkLevel(){
     if (level === null){
         document.getElementById('newDesc').style.display = 'block';  
     }
-    else if (level !== MAX_LEVEL && s === 'none'){
-        selectCharacter(); 
+    else if (level !== "2" && s === 'none'){
+        selectCharacter('robot'); 
     }
     else if (level === MAX_LEVEL && s === 'none'){
         setNewLevel(); 
@@ -264,6 +292,9 @@ function loadIntroDialog(){
         case "tut7":
             gameDesc.innerHTML = DESC.TUT7;
             break;
+        case "1":
+            gameDesc.innerHTML = DESC.LEVEL1;
+            break;
         case "2":
             document.getElementById("desc-tut").style.display = 'none'; 
             document.getElementById("desc-lvl").style.display = 'inline';
@@ -271,9 +302,15 @@ function loadIntroDialog(){
             document.getElementById("btn-lvl").style.display = 'inline'; 
             gameDesc.innerHTML = DESC.LEVEL2;
             break;
+        default:
+            gameDesc.style.display = 'none'; 
+            break;
     }
     if (window.performance.navigation.type != window.performance.navigation.TYPE_RELOAD) {
-        gameDesc.style.display = "block"; 
+        if(level !== null){
+            gameDesc.style.display = "block"; 
+
+        }
     }
 }
 
@@ -310,7 +347,7 @@ function closeDialog(id){
             document.getElementById('pg3').style.display = "none"; 
             document.getElementById('btn3').style.display = "none";
             document.getElementById('desc3').style.display = "none";
-            if(level !== MAX_LEVEL)document.getElementById('gameDesc').style.display = "none"
+            if(level !== "2")document.getElementById('gameDesc').style.display = "none"
             else{
                 document.getElementById('pg4').style.display = "inline"; 
                 document.getElementById('btn4').style.display = "inline";

@@ -1,15 +1,19 @@
 
-MOVEMENT_HUE = 290;
-LOOPS_HUE = 120; 
+
+Blockly.HSV_SATURATION = 1;
+Blockly.HSV_VALUE = 1;
+MOVEMENT_HUE = 33;
+LOOPS_HUE = 200; 
+SCENE_HUE = 49;
 var locale = getMsg(); 
 
 Blockly.Blocks['robot_moveRight'] = {
     init: function() {
       this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
-          "common/arrow_right.png",
-          35,  
-          35,
+          "common/blocks/motion/right.svg",
+          30,  
+          20,
           "*"))
         .appendField(new Blockly.FieldNumber(10), "STEPS");
     this.setColour(MOVEMENT_HUE); 
@@ -27,9 +31,9 @@ Blockly.Blocks['robot_moveRight'] = {
     init: function() {
       this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
-          "common/arrow_left.png",
-          35,  
-          35,
+          "common/blocks/motion/left.svg",
+          30,  
+          20,
           "*"))
           .appendField(new Blockly.FieldNumber(10), "STEPS");
     this.setColour(MOVEMENT_HUE); 
@@ -47,9 +51,9 @@ Blockly.Blocks['robot_moveRight'] = {
     init: function() {
       this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
-          "common/arrow_up.png",
-          35,  
-          35,
+          "common/blocks/motion/up.svg",
+          30,  
+          20,
           "*"))
           .appendField(new Blockly.FieldNumber(10), "STEPS");
     this.setColour(MOVEMENT_HUE); 
@@ -67,9 +71,9 @@ Blockly.Blocks['robot_moveRight'] = {
     init: function() {
       this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
-          "common/arrow_down.png",
-          35,  
-          35,
+          "common/blocks/motion/down.svg",
+          30,  
+          20,
           "*"))
           .appendField(new Blockly.FieldNumber(10), "STEPS");
     this.setColour(MOVEMENT_HUE); 
@@ -88,17 +92,12 @@ Blockly.Blocks['robot_moveRight'] = {
     init: function() {
       this.appendValueInput("TIMES")
           .appendField(new Blockly.FieldImage(
-            "common/loop.png",
+            "common/blocks/loops/loops.svg",
             35,  
             35,
             "*"))
         this.appendStatementInput("DO")
           .setCheck(null)
-          .appendField(new Blockly.FieldImage(
-            "common/arrow_right.png",
-            25,  
-            25,
-            "*"));
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(LOOPS_HUE); 
@@ -141,9 +140,9 @@ Blockly.Blocks['robot_back'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
-          "common/picture.png",
-          35,  
-          35,
+          "common/blocks/scene/back.svg",
+          25,  
+          25,
           "*"))
         .appendField(
           new Blockly.FieldDropdown([
@@ -152,7 +151,7 @@ Blockly.Blocks['robot_back'] = {
               [{"src":"common/background/back3.png","width":15,"height":15,"alt":"RED"} , 'BARN'], 
               [{"src":"common/background/back4.png","width":15,"height":15,"alt":"BLUE"},'CLASS']
             ]),'BACKGROUND');
-    this.setColour(230);
+    this.setColour(SCENE_HUE);
     this.setPreviousStatement(true); 
     this.setNextStatement(true); 
  this.setTooltip("");
@@ -171,9 +170,9 @@ Blockly.Blocks['robot_light'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
-          "common/light.png", 
-          35,
-          35,
+          "common/blocks/scene/light.svg", 
+          30,
+          30,
           "*"))
           .appendField(
             new Blockly.FieldDropdown([
@@ -182,7 +181,7 @@ Blockly.Blocks['robot_light'] = {
                 [{"src":"common/blue.png","width":15,"height":15,"alt":"blue"},'BLUE'], 
                 [{"src":"common/green.png","width":15,"height":15,"alt":"green"} , 'GREEN']
               ]),'LIGHT');   
-      this.setColour(230); 
+      this.setColour(SCENE_HUE); 
       this.setPreviousStatement(true); 
       this.setNextStatement(true); 
   }

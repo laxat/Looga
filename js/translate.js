@@ -4,7 +4,8 @@ var locale;
 
 function changeLanguage(lang)
 {
-    location = "?lang=" + lang;
+    window.location.search = "?lang="+lang+"&level="+level; 
+    //location = "?lang=" + lang;
     //loadFromLocal();
     //location.reload();
 
@@ -40,10 +41,7 @@ function setMsg(lang){
     document.getElementById("load").textContent = lang.header.load;
 
     //Button 
-    document.getElementById("runButton").textContent = lang.button.run; 
-    document.getElementById("stepButton").textContent = lang.button.step; 
-    document.getElementById("resetButton").textContent = lang.button.reset;
-    document.getElementById("view").textContent = lang.button.view;
+    document.getElementById("view").innerHTML = '<img src="common/icons/view.svg"><span>'+lang.button.view+'</span>'
 
 }
 

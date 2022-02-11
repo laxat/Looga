@@ -2,12 +2,13 @@
 html, body {
   margin:0;
   padding:0;
+  background: #E5E5E5;
 }
 
 .content {
   width: 80%;
   max-width: 1200px;
-  margin: 70px auto;
+  margin: 62px auto;
 }
 
 .logo {
@@ -17,7 +18,7 @@ html, body {
 
 /* Makes our label white. */
 .blocklyTreeLabel {
-    color: white;
+    color: black;
   }
   /* Adds padding around the group of categories and separators. */
   /* .blocklyToolboxContents {
@@ -31,7 +32,7 @@ html, body {
   }
   /* Changes color of the icon to white. */
   .customIcon {
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     padding-bottom: 5px;  
   }
   /* Stacks the icon on top of the label. */
@@ -40,8 +41,8 @@ html, body {
     flex-direction: column;
     align-items: center;
     
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   .blocklyTreeRow {
     height: initial;
@@ -49,14 +50,13 @@ html, body {
 
   #capacityBubble {
     position: absolute;
-    margin-top: -0.5em;
     top: 375px;
     width: 380px;
   }
 
   /* Body Stuff */
   #blocklyDiv {
-    margin-top: 4.5em;
+    margin-top: 3.8em;
     position: fixed; 
     bottom: 10px;
   }
@@ -67,41 +67,28 @@ html, body {
     float: right; 
     margin-right: 1em;
   }
-  
-  button {
-  position: relative;
-  outline: none;
-  text-decoration: none;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  height: 40px;
-  width: 90px;
-  opacity: 1;
-  background-color: #106cfc;
-  border-color: white;
-  color: white;
-  }
 
   #stepButton {
     width: 110px
   }
 
   #pg0 {
+    color:rgb(0, 0, 0); 
     display: inline;
   }
 
   #pg1 {
+    color:rgb(0, 0, 0); 
     display: none;
   }
 
   #pg2 {
+    color:rgb(0, 0, 0); 
     display: none;
   }
 
   #pg3 {
+    color:rgb(0, 0, 0); 
     display: none;
   }
 
@@ -146,6 +133,9 @@ html, body {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    border-radius: 20px;
+    border-width: 5px;
+    border-color: #000;
   }
 
   
@@ -153,6 +143,8 @@ html, body {
 .mod-content {
     background-color: #fefefe;
     margin: auto;
+    color: rgba(0,0,0,0.4);
+    /* color: #000; */
     padding: 20px;
     border: 1px solid #888;
     width: 55%;
@@ -160,17 +152,20 @@ html, body {
   }
 
 .intro-modal-content {
-    background-color: #5165ff;
+    background-color: #E5E5E5;
+    color:rgb(0, 0, 0); 
     margin: auto;
     padding: 20px;
-    border: 1px solid #5165ff;
+    border: 1px solid #E5E5E5;
     width: 50%;
     max-width: 50%;
   }
 
 .modal-body {
-    background-color: #5165ff;
-    border-color: #5165ff
+    background-color: #E5E5E5;
+    border-color: #E5E5E5;
+    color:rgb(0, 0, 0); 
+
 }
 
 .intro-1 {
@@ -181,17 +176,73 @@ html, body {
     font-size: 13px
 }
 
+
+.navbar-custom {
+  background-color: #F37341;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.822);
+}
+
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: #ffffff;
+}
+
+.code-view {
+  background: #FFFFFF;
+  border: 1px solid #D6C7C7;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 7px 10px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: 0.5s;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 10px;
+  color: #F37341;  
+
+}
+
+.code-view img {
+  margin-bottom: 5px; 
+}
+
+.code-view span{ 
+  margin: 5px;
+}
+
 .btn-primary {
-  color: #5165ff;
-  background-color: #fffaff;
-  border-color: #fffaff;
-  width: 155px;
-  padding: 8px;
-  font-weight: 700;
-  border-radius: 41px;
-  padding-right: 20px;
-  padding-left: 20px;
-  white-space: normal;
+  background: #F37341;  
+  border: 1px solid #E5E5E5;  
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline;
+  font-size: 15px;
+  font-weight: 200;
+  line-height: 16px;
+  /* margin-right: 20px; */
+  padding: 6px 20px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: #fff;
+  background-position: 0 0;
+  color: #000; 
 }
 
 .column {
