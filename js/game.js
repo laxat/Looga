@@ -21,6 +21,7 @@ var exportButton = document.getElementById('save');
 var importButton = document.getElementById('load');  
 var newButton = document.getElementById('new');
 var modal = document.getElementById('newModal'); 
+var langChanged = sessionStorage.getItem("lang-cng"); 
 var frameSpeed = 10;
 var isPlayerPicked=false; 
 var newGameStarted = isNewGame; 
@@ -52,6 +53,7 @@ const PLAYER = {
         runFrames: 0,
         jumpFrame: 0, 
         fallFrame: 0, 
+        leftSide: 0,
         size: 125, 
         idleSize: 125
     },
@@ -68,6 +70,7 @@ const PLAYER = {
         runFrames: 5,
         jumpFrame: 1, 
         fallFrame: 2,
+        hasLand: true, 
         size: 100,
         idleSize: 100
     }, 
@@ -201,7 +204,7 @@ if (blocklyDiv){
     
 
     Blockly.JavaScript.addReservedWords('movePlayerRight,' + 
-    'movePlayerLeft,movePlayerUp,movePlayerDown,highlightBlock,changeBack,' +
+    'movePlayerLeft,movePlayerUp,movePlayerDown,playerJump,highlightBlock,changeBack,' +
     'turnLightOn,turnLightOff');
 
     ///gameWorkspace.registerButtonCallback("COLOUR_PALETTE", coloursFlyoutCallback); 
@@ -270,6 +273,7 @@ function selectCharacter(name) {
     }
     
     isPlayerPicked = false; 
+    saveToLocal(); 
     modal.style.display = "none";
     window.location.hash = ""; 
 
@@ -316,7 +320,7 @@ function loadLevel(currLevel){
             toolboxText += LEVELS.FIRST; 
             break;
         case "2":
-            toolboxText += LEVELS.SECOND; 
+            toolboxText += LEVELS.SECOND;
             drawInitLevel();
             break;
         default:  
@@ -325,8 +329,11 @@ function loadLevel(currLevel){
     }
     toolboxText += "</xml>"; 
     var toolboxXml = Blockly.Xml.textToDom(toolboxText);
-    gameWorkspace.updateToolbox(toolboxXml);
-    setTimeout(loadIntroDialog, 200); 
+    gameWorkspace.updateToolbox(toolboxXml); 
+    if(!langChanged){
+        setTimeout(loadIntroDialog, 200); 
+        langChanged = false; 
+    }; 
 }
 
 function exportBlocks() {
@@ -435,18 +442,23 @@ function startNewGame() {
 }
 
 function setNewLevel(){
-    if(level !=="2"){
+    if(level !== "2"){
         loadBlocks(); 
         loadLevel(level);
         saveToLocal(); 
     }
     else{
+        if(langChanged){
+            loadBlocks();
+            loadLevel();
+            saveToLocal(); 
+        }else{
         selectCharacter("none"); 
         gameWorkspace.clear();
         modal.style.display = "block"; 
         loadLevel(level);
         saveToLocal(); 
-        
+        }
     }
     //loadBlocks(); 
     
@@ -552,6 +564,7 @@ function apiInterpreter(interpreter, globalObject)
     wrapper = function(dist, id){
         movePlayerLeft(dist, id); 
     }; 
+
     interpreter.setProperty(globalObject, 'moveLeft', 
         interpreter.createNativeFunction(wrapper)); 
     wrapper = function(dist, id){
@@ -561,11 +574,19 @@ function apiInterpreter(interpreter, globalObject)
         interpreter.createNativeFunction(wrapper));
 
     wrapper = function(val, id){
+        playerJump(val, id); 
+    };
+
+    interpreter.setProperty(globalObject, 'moveJump', 
+        interpreter.createNativeFunction(wrapper));
+
+    wrapper = function(val, id){
         changeBackground(val, id); 
     }; 
+
     interpreter.setProperty(globalObject, 'changeBack', 
         interpreter.createNativeFunction(wrapper));
-    
+
     wrapper = function(colour, id){
         turnLightOn(colour, id); 
     }; 
@@ -690,14 +711,19 @@ function getCode() {
 
 
 // Core Functions
-
+function move(){
+    player.x += 2; 
+    light.x += 2; 
+}
 function movePlayerRight(value, id) {
     clearInterval(downTimerId);
     if (player.x < canvas.width - 100) { 
-        player.frameY = 0; 
+        player.frameY = 0;
         player.action = 'right'; 
-        player.x += value; 
-        light.x += value;   
+        for(var i = 0; i < value; i++){
+            setTimeout(move(), 500); 
+        }
+           
     }
     
     highlightBlock(id); 
@@ -709,7 +735,6 @@ function movePlayerDown(value, id) {
     if(player.y < canvas.height - 100){ 
         player.action = 'down'
         player.y += value;
-        
         light.y += value;  
     }
     
@@ -718,24 +743,34 @@ function movePlayerDown(value, id) {
     startAnimating(frameSpeed); 
 }
 
-function movePlayerUp(value, id) {
-    lastPos = player.y
-    fallPos = lastPos - value; 
-    if(player.y > 150){
-        clearInterval(downTimerId);
-        player.action = 'jump'
-        player.dy = 0; 
-        highlightBlock(id);
-        upTimerId = setInterval(function() {
-             player.dy -= value;
-             player.y -= value;  
-             light.y += player.dy;
-             if(player.y < fallPos) {
-                 fall(); 
-             }
-        }, 60); 
-        
+function movePlayerUp(value, id){
+    if(player.y > 150){ 
+        player.action = 'up'
+        player.y -= value;
+        light.y -= value;  
     }
+    
+    highlightBlock(id); 
+    handlePlayerFrame(); 
+    startAnimating(frameSpeed); 
+}
+
+function playerJump(value, id) {
+    lastPos = player.y
+    fallPos = lastPos - value;
+    clearInterval(downTimerId);
+    player.action = 'jump'
+    player.dy = 0; 
+    highlightBlock(id);
+    upTimerId = setInterval(function() {
+        player.dy -= value;
+        player.y -= value;  
+        light.y += player.dy;
+        if(player.y < fallPos) {
+            fall(); 
+        }
+    }, 60); 
+    
     player.gravitySpeed = 0; 
     highlightBlock(id); 
     handlePlayerJumpFrame(); 
@@ -754,7 +789,7 @@ function fall(){
             
         }
         if (player.y >= lastPos && player.action === 'fall') { 
-            player.frameX=3;
+            player.frameX = playerSelect.hasLand ? 3 : playerSelect.leftSide===0 ? 0 : 1; 
         }
     }, 60);
     handlePlayerJumpFrame(); 
@@ -764,8 +799,8 @@ function fall(){
 function movePlayerLeft(value, id){
     clearInterval(downTimerId);
     if(player.x > 0){
-        player.action = 'left';
-        player.frameY = 1;
+        player.action = 'left'; 
+        player.frameY = playerSelect.leftSide===0 ? 0 : 1;
         player.x -= value; 
         light.x -= value; 
 
@@ -815,7 +850,7 @@ function handlePlayerFrame(){
         if(player.frameX < player.maxRunFrames) player.frameX++
         else player.frameX = 0; 
     }
-    if(player.action === 'down'){  
+    if(player.action === 'down' || player.action === 'up'){  
         if(player.frameX < player.maxRunFrames) player.frameX++
         else player.frameX = 0; 
     }

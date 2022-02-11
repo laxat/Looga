@@ -45,7 +45,7 @@
                     <div class="nav-item dropdown">
                       <a href="#" id="level-select" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Level Select</a>
                       <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item" onclick="document.getElementById('level-modal').style.display = 'block'">Jump To</a>
+                        <a id="jump" href="#" class="dropdown-item" onclick="document.getElementById('level-modal').style.display = 'block'">Jump To</a>
                         <a id="skip-lvl" href="#" class="dropdown-item" onclick="nextLevel();">Skip Level</a>
                         <a id="skip-tut" href="#" class="dropdown-item" onclick="setLevel('1');" style="display: none;">Skip Tutorial</a>
                     </div>
@@ -104,8 +104,8 @@
                   <div class="text-center mt-2"> <img src="common/sprites/cat/cat-idle.png" width="200"></div>
               </div>
               <div class="col-md-6">
-                  <div class="text-black mt-4" id="stateTitle"> <span class="intro-1">Load saved game</span>
-                      <div class="mt-2" id="stateDesc"> <span class="intro-2">If you have an old saved game, click to load from the file</span></div>
+                  <div class="text-black mt-4" id="stateTitle"> <span id="load-title" class="intro-1">Load saved game</span>
+                      <div class="mt-2" id="stateDesc"> <span id="load-info" class="intro-2">If you have an old saved game, click to load from the file</span></div>
                       <div class="mt-4 mb-5"><button class="btn btn-primary" id="loadBtn" onclick="document.getElementById('impFile').click()">Load Game  <i class="fa fa-file" aria-hidden="true"></i></button></div>
                   </div>
               </div>
@@ -124,7 +124,7 @@
                   <div class="text-center mt-2"> <img src="common/sprites/redbot/red-idle.png" width="200"></div>
               </div>
               <div class="col-md-6">
-                  <div class="text-black mt-4" id="stateTitle"> <span class="intro-1">Congratulations!!!</span>
+                  <div class="text-black mt-4" id="stateTitle"> <span id="win-title" class="intro-1">Congratulations!!!</span>
                       <div class="mt-2" id="stateDesc"> 
                         <span id="desc-tut" class="intro-2">Hurray you have completed this level, you can now move on the the next one </span>
                         <span id="desc-lvl" style="display: none;" class="intro-2">Hurray you have completed the game, You can refresh to replay this level, or go back to home page </span>
@@ -149,8 +149,8 @@
                   <div class="text-center mt-2"> <img src="common/sprites/bluebot/blue-select.png" width="200"></div>
               </div>
               <div class="col-md-6">
-                  <div class="text-black mt-4" id="stateTitle"> <span class="intro-1">Start New Game</span>
-                      <div class="mt-2" id="stateDesc"> <span class="intro-2">Start a new game, and progress through all the levels</span></div>
+                  <div class="text-black mt-4" id="stateTitle"> <span id="new-title" class="intro-1">Start New Game</span>
+                      <div class="mt-2" id="stateDesc"> <span id="new-info" class="intro-2">Start a new game, and progress through all the levels</span></div>
                       <div class="mt-4 mb-5"><button class="btn btn-primary" id="newBtn">New Game  <i class="fa fa-gamepad" aria-hidden="true"></i></button></div>
                   </div>
               </div>
@@ -197,7 +197,7 @@
         <table>
           <tr>
             <td style="text-indent: 10px;">
-              <a class="code-view"><img src="common/icons/code.svg"><span>Code</span></a>
+              <a id="code" class="code-view"><img src="common/icons/code.svg"><span>Code</span></a>
             </td>
           </tr>
         </table>
@@ -218,10 +218,10 @@
         <script src="js/translate.js"></script>
         <script src="js/toolbox/toolbox.js"></script>
         <script src="js/toolbox/categories.js"></script>
-        <script src="js/toolbox/theme.js"></script>
         <script src="js/blocks.js"></script>
         <script src="js/levels.js"></script>
         <script src="js/game.js"></script>
+        <script src="js/toolbox/theme.js"></script>
         <script>
           var newLevel = isNewLevel; 
           if(window.location.hash === "#new"){

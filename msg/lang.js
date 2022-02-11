@@ -7,8 +7,11 @@ var lang =
             new: "New Project", 
             load: "Load Project",
             save: "Save Project",
-            help: "help", 
-            select: "select"
+            help: "Help", 
+            select: "Level Select",
+            skipTut: "Skip Tutorial", 
+            skipLvl: "Skip Level", 
+            jumpTo: "Jump To"
         },
 
         desc: {

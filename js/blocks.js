@@ -9,13 +9,18 @@ var locale = getMsg();
 
 Blockly.Blocks['robot_moveRight'] = {
     init: function() {
+      var VALUES = 
+          [['10', '10'],
+            ['20', '20'],
+            ['40', '40'],
+            ['80', '80']];
       this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
           "common/blocks/motion/right.svg",
           30,  
           20,
           "*"))
-        .appendField(new Blockly.FieldNumber(10), "STEPS");
+        .appendField(new Blockly.FieldDropdown(VALUES), 'VALUE');
     this.setColour(MOVEMENT_HUE); 
     this.setPreviousStatement(true); 
     this.setNextStatement(true);     
@@ -24,18 +29,24 @@ Blockly.Blocks['robot_moveRight'] = {
 
   Blockly.JavaScript['robot_moveRight'] = function(block) {
     // Generate JavaScript for the example_image function
-    return 'moveRight(' + block.getFieldValue("STEPS") + ', \'' + block.id + '\');\n';
+    var value = Number(block.getFieldValue('VALUE'));
+    return 'moveRight(' + value + ', \'' + block.id + '\');\n';
   };
 
   Blockly.Blocks['robot_moveLeft'] = {
     init: function() {
+      var VALUES = 
+          [['10', '10'],
+            ['20', '20'],
+            ['40', '40'],
+            ['80', '80']];
       this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
           "common/blocks/motion/left.svg",
           30,  
           20,
           "*"))
-          .appendField(new Blockly.FieldNumber(10), "STEPS");
+          .appendField(new Blockly.FieldDropdown(VALUES), 'VALUE');
     this.setColour(MOVEMENT_HUE); 
     this.setPreviousStatement(true); 
     this.setNextStatement(true);     
@@ -44,18 +55,24 @@ Blockly.Blocks['robot_moveRight'] = {
 
   Blockly.JavaScript['robot_moveLeft'] = function(block) {
     // Generate JavaScript for the example_image function
-    return 'moveLeft(' + block.getFieldValue("STEPS") + ', \'' + block.id + '\');\n';
+    var value = Number(block.getFieldValue('VALUE'));
+    return 'moveLeft(' + value + ', \'' + block.id + '\');\n';
   };
 
   Blockly.Blocks['robot_moveUpward'] = {
     init: function() {
+      var VALUES = 
+          [['10', '10'],
+            ['20', '20'],
+            ['40', '40'],
+            ['80', '80']];
       this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
           "common/blocks/motion/up.svg",
           30,  
           20,
           "*"))
-          .appendField(new Blockly.FieldNumber(10), "STEPS");
+          .appendField(new Blockly.FieldDropdown(VALUES), 'VALUE');
     this.setColour(MOVEMENT_HUE); 
     this.setPreviousStatement(true); 
     this.setNextStatement(true);     
@@ -64,18 +81,24 @@ Blockly.Blocks['robot_moveRight'] = {
 
   Blockly.JavaScript['robot_moveUpward'] = function(block) {
     // Generate JavaScript for the example_image function
-    return 'moveUpward(' + block.getFieldValue("STEPS") + ', \'' + block.id + '\');\n';
+    var value = Number(block.getFieldValue('VALUE'));
+    return 'moveUpward(' + value + ', \'' + block.id + '\');\n';
   };
 
   Blockly.Blocks['robot_moveDownward'] = {
     init: function() {
+      var VALUES = 
+          [['10', '10'],
+            ['20', '20'],
+            ['40', '40'],
+            ['80', '80']];
       this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
           "common/blocks/motion/down.svg",
           30,  
           20,
           "*"))
-          .appendField(new Blockly.FieldNumber(10), "STEPS");
+        .appendField(new Blockly.FieldDropdown(VALUES), 'VALUE');
     this.setColour(MOVEMENT_HUE); 
     this.setPreviousStatement(true); 
     this.setNextStatement(true);     
@@ -84,12 +107,39 @@ Blockly.Blocks['robot_moveRight'] = {
 
   Blockly.JavaScript['robot_moveDownward'] = function(block) {
     // Generate JavaScript for the example_image function
-    return 'moveDownward(' + block.getFieldValue("STEPS") + ', \'' + block.id + '\');\n';
+    var value = Number(block.getFieldValue('VALUE'));
+    return 'moveDownward(' + value + ', \'' + block.id + '\');\n';
   };
 
+  Blockly.Blocks['robot_jump'] = {
+    init: function() {
+      var VALUES = 
+        [['10', '10'],
+            ['20', '20'],
+            ['30', '30'],
+            ['40', '50']];
+      this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+          "common/blocks/motion/jump.svg",
+          30,  
+          20,
+          "*"))
+        .appendField(new Blockly.FieldDropdown(VALUES), 'VALUE');
+    this.setColour(MOVEMENT_HUE); 
+    this.setPreviousStatement(true); 
+    this.setNextStatement(true);     
+    }
+  };
+
+  Blockly.JavaScript['robot_jump'] = function(block) {
+    // Generate JavaScript for the example_image function
+    var value = Number(block.getFieldValue('VALUE'));
+    return 'moveJump(' + value + ', \'' + block.id + '\');\n';
+  };
 
   Blockly.Blocks['robot_loops'] = {
     init: function() {
+      
       this.appendValueInput("TIMES")
           .appendField(new Blockly.FieldImage(
             "common/blocks/loops/loops.svg",

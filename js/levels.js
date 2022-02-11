@@ -4,6 +4,10 @@ const MAX_LEVEL = '1';
 var isNewGame = false; 
 var isNewLevel = false;
 
+// Blockly.HSV_SATURATION = 0.93;
+// Blockly.HSV_VALUE = 0.59;
+// Blockly.HSV_HUE = 48; 
+
 var LEVELS = {
 
     TUT1: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
@@ -31,14 +35,14 @@ var LEVELS = {
     '</block></category>',
 
     FIRST: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="list_category">'  + 
-    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block></category>'+
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block><block type="robot_jump"></block></category>'+
     '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="text_category"><block type="robot_back"></block><block type="robot_light"></block></category>' +
     '<category name="'+locale.category.loop+'" css-icon="customIcon fa fa-refresh" categorystyle="loop_category">'+
     '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
     '</block></category>', 
 
     SECOND: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="list_category">'  + 
-    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block></category>'+
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block><block type="robot_jump"></block></category>'+
     '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="text_category"><block type="robot_back"></block><block type="robot_light"></block></category>' +
     '<category name="'+locale.category.loop+'" css-icon="customIcon fa fa-refresh" categorystyle="loop_category">'+
     '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
