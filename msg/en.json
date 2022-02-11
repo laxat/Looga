@@ -110,7 +110,10 @@
         "next": "Next",
         "nextLevel": "Next Level", 
         "home": "Return Home", 
-        "close": "Close"
+        "close": "Close",
+        "advent": "Adventure", 
+        "looga": "Looga", 
+        "tut": "Tutorial"
     },
 
     "block": {

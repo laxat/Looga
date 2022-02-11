@@ -141,12 +141,12 @@ html, body {
   
 /* Modal Content */
 .mod-content {
-    background-color: #fefefe;
+    background-color: #E5E5E5;
     margin: auto;
     color: rgba(0,0,0,0.4);
     /* color: #000; */
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #E5E5E5;
     width: 55%;
     max-width: 55%;
   }

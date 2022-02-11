@@ -7,7 +7,7 @@ Blockly.Themes.Looga = Blockly.Theme.defineTheme('looga', {
             'colour': "49"
         },
         'logic_category': {
-            'colour': "#8b4513",
+            'colour': "240",
         },
         'loop_category': {
             'colour': "#56C2E0",

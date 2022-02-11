@@ -56,6 +56,10 @@ function setMsg(lang){
     changeElement('skip-lvl', lang.header.skipLvl); 
     changeElement('skip-tut', lang.header.skipTut); 
 
+    //Level Select
+    changeElement("lvl-advent", lang.button.advent); 
+    changeElement("lvl-looga", lang.button.looga); 
+    changeElement("lvl-tut", lang.button.tutorial)
 
     //Load Game Modal
     changeElement('load-title', lang.desc.load.title); 

@@ -57,21 +57,29 @@ var lang =
 
             tut4: {
                 title: "Tutorial 04", 
+                page1: "In this level, you will make the player move upward", 
+                page2: "Click the move category, and drag the block to the workspace. You can also change the distance by changing the value",
+                page3: "When you are ready click the play button ", 
+                page4: "After that you will see the player can now move upward "
+            },
+
+            tut5: {
+                title: "Tutorial 05", 
                 page1: "In this level, you will make the player jump", 
                 page2: "Click the move category, and drag the block to the workspace. You can also change the intensity of the jump by changing the value",
                 page3: "When you are ready click the play button ", 
                 page4: "After that you will see the player now jump "
             },
 
-            tut5: {
-                title: "Tutorial 05", 
+            tut6: {
+                title: "Tutorial 06", 
                 page1: "In this level, you will turn on the players light ", 
                 page2: "Click the Scene category, and drag the block to the workspace. You can also change the color of the lamp and turn it on. Try to copy this sequence (its not required but could be cool)", 
                 page3: "When you are ready click the play button", 
                 page4: "After that you will see the player have a light on/off"
             },
 
-            tut6: {
+            tut7: {
                 title: "Tutorial 06", 
                 page1: "In this level, you will change the background", 
                 page2: "Click the Scene category, and drag the block to the workspace. This block can change the background of the game, there are 3 options so far.", 
@@ -79,7 +87,7 @@ var lang =
                 page4: "After that you will see the background has changed"
             },
 
-            tut7: {
+            tut8: {
                 title: "Tutorial 07", 
                 page1: "In this level, you will learn how to use loops", 
                 page2: "Click the Loops category, and drag the block to the workspace. then drag the move block from the move category. you can chnage the number of loops by changing the text of the block.", 
@@ -113,7 +121,10 @@ var lang =
             next: "Next",
             nextLevel: "Next Level", 
             home: "Return Home", 
-            close: "Close"
+            close: "Close",
+            tutorial: "Tutorial", 
+            looga: "Looga", 
+            advent: "Adventure"
         },
 
         block: {

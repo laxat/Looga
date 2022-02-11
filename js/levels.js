@@ -4,32 +4,31 @@ const MAX_LEVEL = '1';
 var isNewGame = false; 
 var isNewLevel = false;
 
-// Blockly.HSV_SATURATION = 0.93;
-// Blockly.HSV_VALUE = 0.59;
-// Blockly.HSV_HUE = 48; 
-
 var LEVELS = {
 
     TUT1: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
     '<block type="robot_moveRight"></block></category>',
 
     TUT2: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
-    '<block type="robot_moveLeft" ></block></category>', 
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block></category>', 
 
     TUT3: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
-    '<block type="robot_moveDownward"></block></category>', 
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block></category>', 
 
     TUT4: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
-    '<block type="robot_moveUpward"></block></category>',
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block></category>',
 
-    TUT5: '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="logic_category">'+
-    '<block type="robot_light"></block></category>',
+    TUT5: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block><block type="robot_jump"></block></category>',
 
     TUT6: '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="logic_category">'+
-    '<block type="robot_back"></block></category>',
+    '<block type="robot_light"></block></category>',
 
-    TUT7: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'  + 
-    '<block type="robot_moveRight"></block></category>'+
+    TUT7: '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="logic_category">'+
+    '<block type="robot_light"></block><block type="robot_back"></block></category>',
+
+    TUT8: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'  + 
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block></category>'+
     '<category name="'+locale.category.loop+'" css-icon="customIcon fa fa-refresh" categorystyle="loop_category">'+
     '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
     '</block></category>',
@@ -109,7 +108,7 @@ var DESC = {
                 '</div></div> </div> </div> </div> </div>', 
     
     TUT4: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
-            '<div class="text-center mt-2"> <img id="pg0" src="common/desc/tut4/blue-jump.png" width="200">' + 
+            '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-select.png" width="200">' + 
             '<img id="pg1" src="common/desc/tut4/blocks.gif" width="320">' + 
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut4/play.gif" width="300">' + 
@@ -126,19 +125,38 @@ var DESC = {
                 '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
                 '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
                 '</div></div> </div> </div> </div> </div>', 
+
+    TUT5:  '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
+                '<div class="text-center mt-2"> <img id="pg0" src="common/desc/tut4/blue-jump.png" width="200">' + 
+                '<img id="pg1" src="common/desc/tut5/blocks.gif" width="320">' + 
+                '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
+                '<img id="pg3" src="common/desc/tut5/play.gif" width="300">' + 
+                '</div> </div> <div class="col-md-6">' +
+                    '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut5.title+'</span>' +
+                    '<div class="mt-2" id="stateDesc">' +
+                    '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut5.page1+'</span>' + 
+                    '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut5.page2+'</span>' + 
+                    '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut5.page3+'</span>' + 
+                    '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut5.page4+'</span>' + 
+                    '</div><div class="mt-4 mb-5">'+
+                    '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
+                    '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
+                    '<button id="btn2" class="btn btn-primary" onclick="'+"closeDialog('pg2')"+'">'+locale.button.next+'</button>' +
+                    '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
+                    '</div></div> </div> </div> </div> </div>', 
     
-    TUT5: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
+    TUT6: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
             '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-idle.png" width="200">' + 
             '<img id="pg1" src="common/desc/tut5/blocks.gif" width="320">' + 
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut5/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-            '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut5.title+'</span>' +
+            '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut6.title+'</span>' +
             '<div class="mt-2" id="stateDesc">' +
-            '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut5.page1+'</span>' + 
-            '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut5.page2+'</span>' + 
-            '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut5.page3+'</span>' + 
-            '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut5.page4+'</span>' + 
+            '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut6.page1+'</span>' + 
+            '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut6.page2+'</span>' + 
+            '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut6.page3+'</span>' + 
+            '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut6.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+  
                 '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
                 '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
@@ -146,18 +164,18 @@ var DESC = {
                 '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
             '</div></div> </div> </div> </div> </div>', 
     
-    TUT6: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
+    TUT7: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
             '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-idle.png" width="200">' + 
             '<img id="pg1" src="common/desc/tut6/blocks.gif" width="320">' + 
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut6/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-                '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut6.title+'</span>' +
+                '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut7.title+'</span>' +
                 '<div class="mt-2" id="stateDesc">' +
-                '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut6.page1+'</span>' + 
-                '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut6.page2+'</span>' + 
-                '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut6.page3+'</span>' + 
-                '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut6.page4+'</span>' + 
+                '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut7.page1+'</span>' + 
+                '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut7.page2+'</span>' + 
+                '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut7.page3+'</span>' + 
+                '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut7.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+  
                 '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
                 '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
@@ -165,18 +183,18 @@ var DESC = {
                 '<button id="btn3" class="btn btn-primary" onclick="'+"closeDialog('pg3')"+'">'+locale.button.close+'</button>' +
                 '</div></div> </div> </div> </div> </div>', 
     
-    TUT7: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
+    TUT8: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
             '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-select.png" width="200">' + 
             '<img id="pg1" src="common/desc/tut7/blocks.gif" width="320">' + 
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut7/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
-            '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut7.title+'</span>' +
+            '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut8.title+'</span>' +
             '<div class="mt-2" id="stateDesc">' +
-            '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut7.page1+'</span>' + 
-            '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut7.page2+' </span>' + 
-            '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut7.page3+'</span>' + 
-            '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut7.page4+'</span>' + 
+            '<span id="desc0" class="intro-2" style="display: inline">'+locale.desc.tut8.page1+'</span>' + 
+            '<span id="desc1" class="intro-2" style="display: none">'+locale.desc.tut8.page2+' </span>' + 
+            '<span id="desc2" class="intro-2" style="display: none">'+locale.desc.tut8.page3+'</span>' + 
+            '<span id="desc3" class="intro-2" style="display: none">'+locale.desc.tut8.page4+'</span>' + 
                 '</div><div class="mt-4 mb-5">'+  
                 '<button id="btn0" class="btn btn-primary" onclick="'+"closeDialog('pg0')"+'">'+locale.button.next+'</button>' +
                 '<button id="btn1" class="btn btn-primary" onclick="'+"closeDialog('pg1')"+'">'+locale.button.next+'</button>' +
@@ -238,7 +256,7 @@ function startGame() {
     isNewGame=true; 
 }
 
-const levelList = ['tut1', 'tut2', 'tut3', 'tut4', 'tut5', 'tut6', 'tut7', '1', '2']; 
+const levelList = ['tut1', 'tut2', 'tut3', 'tut4', 'tut5', 'tut6', 'tut7', 'tut8', '1', '2']; 
 function nextLevel() {
     if (level !== MAX_LEVEL && level !== '2'){
         let current = levelList.findIndex((element) => element === level);  
@@ -247,6 +265,7 @@ function nextLevel() {
     }
     else if(level === '2'){
         localStorage.removeItem("level"); 
+        sessionStorage.removeItem("lang-cng"); 
         window.location.href = "index.html";  
     }
 }

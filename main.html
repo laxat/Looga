@@ -11,7 +11,8 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://unpkg.com/blockly"></script>
-      <script src="js/depedancies/acorn_interpreter.js"></script>
+      <script src="js/depedencies/javascript_compressed.js"></script>
+      <script src="js/depedencies/acorn_interpreter.js"></script>
       <script src="msg/lang.js"></script>
       
   </head>
@@ -39,7 +40,6 @@
                             <a href="#" id="new" class="dropdown-item">New Project</a>
                             <a href="#" id="save" class="dropdown-item">Save Project</a>
                             <a href="#" id="load" class="dropdown-item">Load Project</a>
-                            <!-- onclick="document.getElementById('impFile').click();" -->
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -83,14 +83,14 @@
     <div id="level-modal" class="mod">
       <div class="mod-content" style="width: fit-content;">
         <div class="row">
-          <div class="column" style="margin-left: 40px;">
-            <img src="common/sprites/looga.png" onclick="setLevel('tut1')" alt="Tutorial" width="80">
+          <div class="column" style="margin-left: 10px;">
+            <button id="lvl-tut" class="btn btn-primary" onclick="setLevel('tut1')">Tutorial</button>
           </div>
-          <div class="column" style="margin-top: 40px;">
-            <img src="common/looga.png" onclick="setLevel('1')" alt="Looga" width="200">
+          <div class="column" style="margin-Left: 20px;">
+            <button id="lvl-looga" class="btn btn-primary" onclick="setLevel('1')" >Looga</button>
           </div>
-          <div class="column" style="margin-left: 80px;">
-            <img src="common/sprites/key.png" onclick="setLevel('2')" alt="Adventure" width="150">
+          <div class="column" style="margin-left: 10px;">
+            <button id="lvl-advent" class="btn btn-primary" onclick="setLevel('2')">Adventure</button>
           </div>
         </div>
       </div>

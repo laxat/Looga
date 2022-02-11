@@ -304,7 +304,7 @@ function loadLevel(currLevel){
             toolboxText += LEVELS.TUT4; 
             break;
         case "tut5":
-            selectCharacter('robot'); 
+            selectCharacter('blue'); 
             toolboxText += LEVELS.TUT5; 
             break;
         case "tut6":
@@ -314,6 +314,10 @@ function loadLevel(currLevel){
         case "tut7":
             selectCharacter('robot'); 
             toolboxText += LEVELS.TUT7; 
+            break;
+        case "tut8":
+            selectCharacter('robot'); 
+            toolboxText += LEVELS.TUT8; 
             break;
         case "1":
             selectCharacter('robot'); 
@@ -332,8 +336,10 @@ function loadLevel(currLevel){
     gameWorkspace.updateToolbox(toolboxXml); 
     if(!langChanged){
         setTimeout(loadIntroDialog, 200); 
-        langChanged = false; 
+        sessionStorage.removeItem("lang-cng"); 
     }; 
+    sessionStorage.removeItem("lang-cng"); 
+
 }
 
 function exportBlocks() {
@@ -869,12 +875,38 @@ function handlePlayerJumpFrame(){
 
 }
 
+function checkInclusion(str){
+    var code = Blockly.JavaScript.workspaceToCode(gameWorkspace); 
+    if(code.includes(str)){
+        saveToLocal(); 
+        LoadWinner(); 
+    }
+}
+
 function checkClearCondition() {
     var blockCount = gameWorkspace.getAllBlocks().length; 
     if(level !== "2" && level != MAX_LEVEL){
         if(blockCount > 0){
-            saveToLocal(); 
-            LoadWinner(); 
+            switch (level) {
+                case "tut1": 
+                    checkInclusion("moveRight"); 
+                case "tut2":
+                    checkInclusion("moveLeft"); 
+                case "tut3":
+                    checkInclusion("moveDownward");
+                case "tut4":
+                    checkInclusion("moveUpward"); 
+                case "tut5":
+                    checkInclusion("moveJump"); 
+                case "tut6":
+                    checkInclusion("turnOn") || checkInclusion("turnOff"); 
+                case "tut7":
+                    checkInclusion("changeBack"); 
+                case "tut8":
+                    checkInclusion("for"); 
+            }
+        }else{
+            alert("Please place a block"); 
         }
     }
     else if(level === '2'){
