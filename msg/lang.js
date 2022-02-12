@@ -80,7 +80,7 @@ var lang =
             },
 
             tut7: {
-                title: "Tutorial 06", 
+                title: "Tutorial 07", 
                 page1: "In this level, you will change the background", 
                 page2: "Click the Scene category, and drag the block to the workspace. This block can change the background of the game, there are 3 options so far.", 
                 page3: "When you are ready click the play button ", 
@@ -88,7 +88,7 @@ var lang =
             },
 
             tut8: {
-                title: "Tutorial 07", 
+                title: "Tutorial 08", 
                 page1: "In this level, you will learn how to use loops", 
                 page2: "Click the Loops category, and drag the block to the workspace. then drag the move block from the move category. you can chnage the number of loops by changing the text of the block.", 
                 page3: "When you are ready click the play button", 

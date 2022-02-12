@@ -116,7 +116,8 @@ const BACK = {
     "RIVER": "common/background/back1.png",
     "TENT": "common/background/back2.png",
     "BARN": "common/background/back3.png",
-    "CLASS": "common/background/back4.png" 
+    "CLASS": "common/background/back4.png",
+    "DOOR-KEY": "common/background/back5.png" 
 }; 
 
 const LIGHT_COLOUR = {
@@ -304,7 +305,7 @@ function loadLevel(currLevel){
             toolboxText += LEVELS.TUT4; 
             break;
         case "tut5":
-            selectCharacter('blue'); 
+            selectCharacter('robot'); 
             toolboxText += LEVELS.TUT5; 
             break;
         case "tut6":
@@ -325,6 +326,7 @@ function loadLevel(currLevel){
             break;
         case "2":
             toolboxText += LEVELS.SECOND;
+            changeBackground("DOOR-KEY"); 
             drawInitLevel();
             break;
         default:  
@@ -389,7 +391,7 @@ function loadBlocks() {
         selectCharacter(mascot); 
         sessionStorage.removeItem("loadOnce");
         sessionStorage.removeItem("loadOnceBlocks");
-        sessionStorage.removeItem("mascot")
+        sessionStorage.removeItem("mascot");
         saveToLocal(); 
     }else{
         selectCharacter(localCharacter);  
@@ -717,9 +719,14 @@ function getCode() {
 
 
 // Core Functions
-function move(){
-    player.x += 2; 
-    light.x += 2; 
+function moveX(val){
+    player.x += val; 
+    light.x += val;      
+}
+
+function moveY(val){
+    player.y += val; 
+    light.y += val; 
 }
 function movePlayerRight(value, id) {
     clearInterval(downTimerId);
@@ -727,7 +734,7 @@ function movePlayerRight(value, id) {
         player.frameY = 0;
         player.action = 'right'; 
         for(var i = 0; i < value; i++){
-            setTimeout(move(), 500); 
+            setTimeout(moveX(2), 500); 
         }
            
     }
@@ -740,8 +747,9 @@ function movePlayerRight(value, id) {
 function movePlayerDown(value, id) {
     if(player.y < canvas.height - 100){ 
         player.action = 'down'
-        player.y += value;
-        light.y += value;  
+        for(var i = 0; i < value; i++){
+            setTimeout(moveY(2), 500); 
+        } 
     }
     
     highlightBlock(id); 
@@ -752,11 +760,27 @@ function movePlayerDown(value, id) {
 function movePlayerUp(value, id){
     if(player.y > 150){ 
         player.action = 'up'
-        player.y -= value;
-        light.y -= value;  
+        for(var i = 0; i < value; i++){
+            setTimeout(moveY(-2), 500); 
+        }  
     }
     
     highlightBlock(id); 
+    handlePlayerFrame(); 
+    startAnimating(frameSpeed); 
+}
+
+function movePlayerLeft(value, id){
+    clearInterval(downTimerId);
+    if(player.x > 0){
+        player.action = 'left'; 
+        player.frameY = playerSelect.leftSide===0 ? 0 : 1;
+        for(var i = 0; i < value; i++){
+            setTimeout(moveX(-2), 500); 
+        } 
+
+    }
+    highlightBlock(id);
     handlePlayerFrame(); 
     startAnimating(frameSpeed); 
 }
@@ -799,20 +823,6 @@ function fall(){
         }
     }, 60);
     handlePlayerJumpFrame(); 
-    startAnimating(frameSpeed); 
-}
- 
-function movePlayerLeft(value, id){
-    clearInterval(downTimerId);
-    if(player.x > 0){
-        player.action = 'left'; 
-        player.frameY = playerSelect.leftSide===0 ? 0 : 1;
-        player.x -= value; 
-        light.x -= value; 
-
-    }
-    highlightBlock(id);
-    handlePlayerFrame(); 
     startAnimating(frameSpeed); 
 }
 

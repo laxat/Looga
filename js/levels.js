@@ -147,9 +147,9 @@ var DESC = {
     
     TUT6: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
             '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-idle.png" width="200">' + 
-            '<img id="pg1" src="common/desc/tut5/blocks.gif" width="320">' + 
+            '<img id="pg1" src="common/desc/tut6/blocks.gif" width="320">' + 
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
-            '<img id="pg3" src="common/desc/tut5/play.gif" width="300">' + 
+            '<img id="pg3" src="common/desc/tut6/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
             '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut6.title+'</span>' +
             '<div class="mt-2" id="stateDesc">' +
@@ -166,9 +166,9 @@ var DESC = {
     
     TUT7: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
             '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-idle.png" width="200">' + 
-            '<img id="pg1" src="common/desc/tut6/blocks.gif" width="320">' + 
+            '<img id="pg1" src="common/desc/tut7/blocks.gif" width="320">' + 
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
-            '<img id="pg3" src="common/desc/tut6/play.gif" width="300">' + 
+            '<img id="pg3" src="common/desc/tut7/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
                 '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut7.title+'</span>' +
                 '<div class="mt-2" id="stateDesc">' +
@@ -185,9 +185,9 @@ var DESC = {
     
     TUT8: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
             '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-select.png" width="200">' + 
-            '<img id="pg1" src="common/desc/tut7/blocks.gif" width="320">' + 
+            '<img id="pg1" src="common/desc/tut8/blocks.gif" width="320">' + 
             '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
-            '<img id="pg3" src="common/desc/tut7/play.gif" width="300">' + 
+            '<img id="pg3" src="common/desc/tut8/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
             '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut8.title+'</span>' +
             '<div class="mt-2" id="stateDesc">' +
@@ -314,6 +314,9 @@ function loadIntroDialog(){
             break;
         case "tut7":
             gameDesc.innerHTML = DESC.TUT7;
+            break;
+        case "tut8":
+            gameDesc.innerHTML = DESC.TUT8;
             break;
         case "1":
             gameDesc.innerHTML = DESC.LEVEL1;
