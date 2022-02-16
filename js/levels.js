@@ -6,44 +6,44 @@ var isNewLevel = false;
 
 var LEVELS = {
 
-    TUT1: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
+    TUT1: '<category name="'+locale.category.move+'" colour="33">'+
     '<block type="robot_moveRight"></block></category>',
 
-    TUT2: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
+    TUT2: '<category name="'+locale.category.move+'" colour="33">'+
     '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block></category>', 
 
-    TUT3: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
+    TUT3: '<category name="'+locale.category.move+'" colour="33">'+
     '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block></category>', 
 
-    TUT4: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
+    TUT4: '<category name="'+locale.category.move+'" colour="33">'+
     '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block></category>',
 
-    TUT5: '<category name="'+locale.category.move+'" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'+
-    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block><block type="robot_jump"></block></category>',
+    TUT5: '<category name="'+locale.category.move+'" colour="33">'+
+    '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block>' +
+    '<block type="robot_jump"></block></category>' ,
 
-    TUT6: '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="logic_category">'+
+    TUT6: '<category name="'+locale.category.scene+'" colour="49">'+
     '<block type="robot_light"></block></category>',
 
-    TUT7: '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="logic_category">'+
+    TUT7: '<category name="'+locale.category.scene+'" colour="49">'+
     '<block type="robot_light"></block><block type="robot_back"></block></category>',
 
-    TUT8: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="text_category">'  + 
+    TUT8: '<category name="'+locale.category.move+'" colour="33">'  + 
     '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block></category>'+
-    '<category name="'+locale.category.loop+'" css-icon="customIcon fa fa-refresh" categorystyle="loop_category">'+
+    '<category name="'+locale.category.loop+'" colour="200">'+
     '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
     '</block></category>',
 
-    FIRST: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="list_category">'  + 
+    FIRST: '<category name="'+locale.category.move+'" colour="33">'  + 
     '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block><block type="robot_jump"></block></category>'+
-    '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="text_category"><block type="robot_back"></block><block type="robot_light"></block></category>' +
-    '<category name="'+locale.category.loop+'" css-icon="customIcon fa fa-refresh" categorystyle="loop_category">'+
+    '<category name="'+locale.category.scene+'" colour="49"><block type="robot_back"></block><block type="robot_light"></block></category>' +
+    '<category name="'+locale.category.loop+'" colour="200">'+
     '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
     '</block></category>', 
 
-    SECOND: '<category name="'+locale.category.move+'" toolboxitemid="move" css-icon="customIcon fa fa-arrow-left" categorystyle="list_category">'  + 
+    SECOND: '<category name="'+locale.category.move+'" colour="33">'  + 
     '<block type="robot_moveRight"></block><block type="robot_moveLeft"></block><block type="robot_moveDownward"></block><block type="robot_moveUpward"></block><block type="robot_jump"></block></category>'+
-    '<category name="'+locale.category.scene+'" css-icon="customIcon fa fa-picture-o" categorystyle="text_category"><block type="robot_back"></block><block type="robot_light"></block></category>' +
-    '<category name="'+locale.category.loop+'" css-icon="customIcon fa fa-refresh" categorystyle="loop_category">'+
+    '<category name="'+locale.category.loop+'" colour="200">'+
     '<block type="robot_loops"><value name="TIMES"><block type="math_number"><field name="NUM">10</field></block></value>' +
     '</block></category>'
 }; 
@@ -343,9 +343,7 @@ function loadIntroDialog(){
 function closeDialog(id){
 
     switch (id){
-
         case 'pg0':
-            console.log("here");
             document.getElementById('pg0').style.display = "none"; 
             document.getElementById('btn0').style.display = "none"; 
             document.getElementById('desc0').style.display = "none"; 

@@ -1,21 +1,7 @@
-
+Blockly.Msg.LOGIC_HUE = '49';
 Blockly.Themes.Looga = Blockly.Theme.defineTheme('looga', {
     'base': Blockly.Themes.Classic,
     'componentStyles': {
-
-        'list_category': {
-            'colour': "49"
-        },
-        'logic_category': {
-            'colour': "240",
-        },
-        'loop_category': {
-            'colour': "#56C2E0",
-        },
-        'text_category': {
-            'colour': "#56C2E0",
-        }, 
-
         'workspaceBackgroundColour': '#fff',
         'toolboxBackgroundColour': '#eee',
         'toolboxForegroundColour': '#eee',

@@ -637,7 +637,7 @@ function reset(){
     player.frameX = 0; 
     player.frameY = 0; 
     player.gravitySpeed = 0; 
-    background.src = BACK['RIVER']; 
+    ///background.src = BACK['RIVER']; 
     light.x  = player.x + 40; 
     light.y = player.y - 10; 
     light.visible = false; 
@@ -828,7 +828,7 @@ function fall(){
 
 function turnLightOn(colour, id){
     clearInterval(downTimerId);
-    player.action = 'lightOn'; 
+    player.action = 'idle'; 
     if (colour in LIGHT_COLOUR){
         light.visible = true; 
         lightSprite.src = LIGHT_COLOUR[colour]; 
@@ -840,7 +840,6 @@ function turnLightOn(colour, id){
 
 function turnLightOff(id){
     clearInterval(downTimerId);
-    player.action  = 'lightOff'; 
     light.visible = false; 
     startAnimating(frameSpeed); 
     highlightBlock(id); 
