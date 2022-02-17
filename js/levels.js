@@ -53,7 +53,7 @@ var DESC = {
     TUT1: '<div class="intro-modal-content"> <div class="modal-body"> <div class="row"> <div class="col-md-6">' +
             '<div class="text-center mt-2"> <img id="pg0" src="common/sprites/bluebot/blue-select.png" width="200">' + 
             '<img id="pg1" src="common/desc/tut1/page1.gif" width="200">' + 
-            '<img id="pg2" src="common/desc/tut1/run.png" width="200">' + 
+            '<img id="pg2" src="common/desc/tut3/run.png" width="200">' + 
             '<img id="pg3" src="common/desc/tut1/play.gif" width="300">' + 
             '</div> </div> <div class="col-md-6">' +
               '<div class="text-black mt-4" id="stateTitle"> <span class="intro-1">'+locale.desc.tut1.title+'</span>' +
